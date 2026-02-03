@@ -1,0 +1,6 @@
+<h2>{{ titel }}</h2>
+<div class="col-md-12 menu">
+  <button *ngFor="let point of menuPoints" class="col-md-2 btn btn-primary" [routerLink]="point.route">
+    {{ point.label }}
+  </button>
+</div>
