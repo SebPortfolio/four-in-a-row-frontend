@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "api:build": "powershell -ExecutionPolicy RemoteSigned -File ./api-build.ps1",
+    "api": "powershell -ExecutionPolicy RemoteSigned -File ./api-build.ps1",
     "prettier": "prettier --config .prettierrc --write src/**/\"*{ts,js,html,json,less}\""
   },
   "private": true,
