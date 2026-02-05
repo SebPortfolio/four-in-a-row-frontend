@@ -1,0 +1,7 @@
+<div class="col-md-6 offset-md-3 spiel-brett-gitter">
+  <div class="row" *ngFor="let reihe of game().board">
+    <div class="col einzel-feld" *ngFor="let column of reihe">
+      <app-spiel-stein [player]="column"></app-spiel-stein>
+    </div>
+  </div>
+</div>

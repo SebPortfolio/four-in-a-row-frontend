@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameApi } from '../../../openapi';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Game, GameCreateRequest, GameStatus, MoveRequest } from './game.model';
 
 @Injectable({
@@ -14,7 +14,9 @@ export class GameApiService {
     }
 
     getGameById(gameId: number): Observable<Game> {
-        return this.gameApi.getGameById(gameId);
+        console.log('MOCKING: Fetching game with ID:', gameId);
+        return of(this.mockGame());
+        //return this.gameApi.getGameById(gameId);
     }
 
     createGame(player1Id: number, player2Id: number): Observable<Game> {
@@ -31,5 +33,31 @@ export class GameApiService {
 
     deleteGame(gameId: number): Observable<Game> {
         return this.gameApi.deleteGameById(gameId);
+    }
+
+    private mockGame(): Game {
+        return {
+            id: 1,
+            player1: {
+                id: 0,
+                username: 'Spieler 1',
+                registeredOn: '2023-01-01T00:00:00Z',
+            },
+            player2: {
+                id: 1,
+                username: 'Spieler 2',
+                registeredOn: '2024-12-01T00:00:00Z',
+            },
+            board: [
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 1, 0, 0, 0],
+                [0, 0, 0, 2, 0, 0, 0],
+                [0, 1, 2, 1, 0, 0, 0],
+                [2, 1, 1, 2, 0, 0, 0],
+            ],
+            currentPlayer: 1,
+            status: GameStatus.InProgress,
+        };
     }
 }

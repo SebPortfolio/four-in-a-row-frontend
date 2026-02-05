@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MenuTemplateComponent } from '../menu-template/menu-template.component';
+import { RotuingObj } from '../../common/types';
 
 @Component({
     selector: 'app-main-menu',
@@ -11,7 +12,7 @@ import { MenuTemplateComponent } from '../menu-template/menu-template.component'
 })
 export class HauptmenuComponent {
     titel: string = 'Hauptmenü';
-    menuPoints: { label: string; route: string }[] = [
+    menuPoints: RotuingObj[] = [
         { label: 'Einzelspieler', route: 'singleplayer' },
         { label: 'Mehrspieler (lokal)', route: 'multiplayer-local' },
         { label: 'Einstellungen', route: 'settings' },

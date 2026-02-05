@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuTemplateComponent } from '../menu-template/menu-template.component';
+import { RotuingObj } from '../../common/types';
 
 @Component({
     selector: 'app-singleplayer-menu',
@@ -10,7 +11,7 @@ import { MenuTemplateComponent } from '../menu-template/menu-template.component'
 })
 export class EinzelspielerMenuComponent {
     titel: string = 'Einzelspieler';
-    menuPoints: { label: string; route: string }[] = [
+    menuPoints: RotuingObj[] = [
         { label: 'Neues Spiel', route: 'new' },
         { label: 'Spiel laden', route: 'load' },
         { label: 'Zurück zum Hauptmenü', route: '..' },

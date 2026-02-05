@@ -6,22 +6,24 @@ import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { Game } from '../game.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { SpielBrettComponent } from '../spiel-brett/spiel-brett.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'app-game-board',
+    selector: 'app-spiel-management',
     standalone: true,
-    imports: [],
-    templateUrl: './game-board.component.html',
-    styleUrl: './game-board.component.less',
+    imports: [SpielBrettComponent, CommonModule],
+    templateUrl: './spiel-management.component.html',
+    styleUrl: './spiel-management.component.less',
 })
-export class GameBoardComponent {
+export class SpielManagementComponent {
     constructor(private gameApiService: GameApiService, private router: Router) {}
 
     gameMode: InputSignal<GameMode> = input.required<GameMode>();
     gameId: InputSignal<number> = input.required<number>();
 
     // Wandelt gameId-Input (Signal) in Observable um, somit kann man auf Änderungen (z.B. ID-Wechsel in der URL) reagieren
-    game: Signal<Game> = toSignal(
+    game: Signal<Game | undefined> = toSignal(
         toObservable(this.gameId).pipe(
             // Bricht laufende Requests ab, wenn neue ID kommt
             switchMap(gameId =>
@@ -32,9 +34,7 @@ export class GameBoardComponent {
                     })
                 )
             )
-        ),
-        // Verhindert 'undefined' als Initialwert.
-        { initialValue: {} as Game }
+        )
     );
 
     private handleGameError(error: HttpErrorResponse): void {
