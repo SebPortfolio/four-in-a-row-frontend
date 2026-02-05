@@ -1,3 +1,50 @@
+.spiel-container {
+  position: relative;
+}
+
+.preview-row {
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.preview-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview-hover {
+  opacity: 0.5;
+  transform: translateY(10px);
+}
+
+.preview-active {
+  opacity: 1;
+  transform: translateY(0);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+}
+
+.ghost-stein {
+  position: absolute;
+  z-index: 1; /* Hinter dem Bullauge (::after hat z-index 2) */
+  opacity: 0.3;
+  border: 2px dashed white;
+}
+
+/* Animation für den finalen Drop */
+@keyframes dropAnim {
+  0% {
+    transform: translateY(-400px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.dropping {
+  animation: dropAnim 0.4s cubic-bezier(0.5, 0, 0.5, 1);
+}
+
 .einzel-feld {
   height: 60px;
   display: flex;

@@ -1,7 +1,35 @@
-<div class="col-md-6 offset-md-3 spiel-brett-gitter">
-  <div class="row" *ngFor="let reihe of game().board">
-    <div class="col einzel-feld" *ngFor="let column of reihe">
-      <app-spiel-stein [player]="column"></app-spiel-stein>
+<div class="col-md-6 offset-md-3 spiel-container">
+  <div class="row preview-row">
+    <div class="col preview-cell" *ngFor="let reihe of game().board[0]; let colIndex = index">
+      <app-spiel-stein
+        [player]="game().currentPlayer"
+        [isGhost]="selectedColumn() !== colIndex"
+        *ngIf="hoveredColumn() === colIndex || selectedColumn() === colIndex"
+        [currentPlayer]="game().currentPlayer"
+      >
+      </app-spiel-stein>
+    </div>
+  </div>
+
+  <div class="spiel-brett-gitter">
+    <div class="row" *ngFor="let reihe of game().board; let rowIndex = index">
+      <div
+        class="col einzel-feld"
+        *ngFor="let col of reihe; let colIndex = index"
+        (mouseenter)="hoveredColumn.set(colIndex)"
+        (mouseleave)="hoveredColumn.set(null)"
+        (click)="handleCellClick(colIndex)"
+      >
+        <app-spiel-stein
+          [player]="col"
+          [isGhost]="
+            col === 0 &&
+            (hoveredColumn() === colIndex || selectedColumn() === colIndex) &&
+            getLandingRow(colIndex) === rowIndex
+          "
+          [currentPlayer]="game().currentPlayer"
+        ></app-spiel-stein>
+      </div>
     </div>
   </div>
 </div>
