@@ -9,6 +9,7 @@ export const routes: Routes = [
     { path: '', component: HauptmenuComponent },
     { path: 'singleplayer', component: EinzelspielerMenuComponent },
     { path: 'settings', component: EinstellungenMenuComponent },
+    { path: ':gameMode/games', component: SpielManagementComponent, canActivate: [gameModeGuard] },
     { path: ':gameMode/games/:gameId', component: SpielManagementComponent, canActivate: [gameModeGuard] },
     {
         path: 'inital-angular-site',

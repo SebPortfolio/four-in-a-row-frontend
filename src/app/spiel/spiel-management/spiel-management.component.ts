@@ -20,28 +20,47 @@ export class SpielManagementComponent {
     constructor(private gameApiService: GameApiService, private router: Router) {}
 
     gameMode: InputSignal<GameMode> = input.required<GameMode>();
-    gameId: InputSignal<number> = input.required<number>();
+    gameId: InputSignal<number | null> = input<number | null>(null);
 
     // Wandelt gameId-Input (Signal) in Observable um, somit kann man auf Änderungen (z.B. ID-Wechsel in der URL) reagieren
     game: Signal<Game | undefined> = toSignal(
         toObservable(this.gameId).pipe(
             // Bricht laufende Requests ab, wenn neue ID kommt
-            switchMap(gameId =>
-                this.gameApiService.getGameById(gameId).pipe(
-                    catchError(err => {
-                        this.handleGameError(err);
-                        return of({} as Game);
-                    })
-                )
-            )
+            switchMap(gameId => {
+                if (gameId !== null && gameId !== undefined) {
+                    // FALL 1: ID vorhanden -> Spiel laden
+                    return this.gameApiService.getGameById(gameId).pipe(
+                        catchError(err => {
+                            this.handleGameError(err);
+                            return of({} as Game);
+                        })
+                    );
+                } else {
+                    // FALL 2: Keine ID -> Neues Spiel erstellen
+                    return this.gameApiService.createGame(1, 2).pipe(
+                        // TODO: korrekte Spieler-IDs verwenden
+                        switchMap(newGame => {
+                            this.router.navigate([this.gameMode(), 'games', newGame.id], { replaceUrl: true });
+                            return of(newGame);
+                        }),
+                        catchError(err => {
+                            this.handleGameError(err);
+                            return of({} as Game);
+                        })
+                    );
+                }
+            })
         )
     );
 
+    spielStarten(): void {}
+    spielLaden(): void {}
+
     private handleGameError(error: HttpErrorResponse): void {
-        console.error('Fehler beim Laden des Spiels:', error);
+        console.error('Fehler beim Erstellen/Laden des Spiels:', error);
         switch (error.status) {
             case 404:
-                alert('Spiel nicht gefunden. Bitte überprüfen Sie die Spiel-ID.');
+                alert('Spiel nicht gefunden.');
                 break;
             case 500:
                 alert('Serverfehler. Bitte versuchen Sie es später erneut.');
