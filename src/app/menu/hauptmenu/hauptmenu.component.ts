@@ -16,6 +16,7 @@ export class HauptmenuComponent {
         { label: 'Einzelspieler', route: 'singleplayer' },
         { label: 'Mehrspieler (lokal)', route: 'multiplayer-local' },
         { label: 'Einstellungen', route: 'settings' },
+        { label: 'Spieler', route: 'players' },
         { label: 'Hilfe', route: 'help' },
         { label: 'Über uns', route: 'about-us' },
         { label: 'Initiale Angular Seite', route: 'inital-angular-site' },

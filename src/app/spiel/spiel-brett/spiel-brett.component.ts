@@ -3,6 +3,7 @@ import { Game } from '../game.model';
 import { CommonModule } from '@angular/common';
 import { SpielSteinComponent } from '../spiel-stein/spiel-stein.component';
 import { GameApiService } from '../game-api.service';
+import { GameService } from '../game.service';
 
 @Component({
     selector: 'app-spiel-brett',
@@ -15,7 +16,7 @@ export class SpielBrettComponent implements OnInit {
     game: InputSignal<Game> = input.required<Game>();
     gameState: WritableSignal<Game | null> = signal<Game | null>(null);
 
-    constructor(private gameApiService: GameApiService) {}
+    constructor(private gameService: GameService, private gameApiService: GameApiService) {}
 
     ngOnInit(): void {
         console.log('SpielBrettComponent initialized with game:', this.game());

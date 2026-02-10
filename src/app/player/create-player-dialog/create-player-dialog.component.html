@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <form [formGroup]="playerForm" (ngSubmit)="onSubmit()" class="player-form">
+    <div class="form-group mb-3">
+      <label for="username" class="form-label">Benutzername</label>
+      <input
+        id="username"
+        type="text"
+        class="form-control"
+        formControlName="username"
+        [class.is-invalid]="playerForm.get('username')?.invalid && playerForm.get('username')?.touched"
+        placeholder="z.B. CyberPlayer99"
+        autofocus
+      />
+      <div class="invalid-feedback">
+        <span *ngIf="playerForm.get('username')?.errors?.['required']">Name wird benötigt.</span>
+        <span *ngIf="playerForm.get('username')?.errors?.['minlength']">Mindestens 3 Zeichen erforderlich.</span>
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <label for="email" class="form-label">E-Mail Adresse</label>
+      <input
+        id="email"
+        type="email"
+        class="form-control"
+        formControlName="email"
+        [class.is-invalid]="playerForm.get('email')?.invalid && playerForm.get('email')?.touched"
+        placeholder="name@beispiel.de"
+      />
+      <div class="invalid-feedback">
+        Bitte gib eine gültige E-Mail-Adresse an.
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-6">
+        <button type="button" class="btn btn-danger w-100" (click)="onCancel()">
+          Abbrechen
+        </button>
+      </div>
+      <div class="col-6">
+        <button type="submit" class="btn btn-primary w-100" [disabled]="playerForm.invalid">
+          Spieler erstellen
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

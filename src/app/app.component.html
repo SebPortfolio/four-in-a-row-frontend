@@ -1,3 +1,7 @@
 <h1>Welcome to Four in a Row!</h1>
 <router-outlet></router-outlet>
 <p>Enjoy playing the game!</p>
+
+<app-shared-dialog *ngIf="currentDialog()" [title]="currentDialog()!.title">
+  <ng-container *ngComponentOutlet="currentDialog()!.component"></ng-container>
+</app-shared-dialog>

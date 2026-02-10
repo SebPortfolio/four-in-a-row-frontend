@@ -9,12 +9,18 @@ import { Component, computed, input, InputSignal } from '@angular/core';
     styleUrl: './spiel-stein.component.less',
 })
 export class SpielSteinComponent {
-    player: InputSignal<number> = input.required<number>();
+    /**
+     * Spieler, dem der Spielstein gehört
+     */
+    playerId: InputSignal<number> = input.required<number>();
     isGhost: InputSignal<boolean> = input<boolean>(false);
-    currentPlayer: InputSignal<number> = input.required<number>();
+    /**
+     * aktueller Spieler, unabhängig der Zugehörigkeit
+     */
+    currentPlayerId: InputSignal<number> = input.required<number>();
 
     stoneClass = computed(() => {
-        const p = this.isGhost() ? this.currentPlayer() : this.player();
+        const p = this.isGhost() ? this.currentPlayerId() : this.playerId();
         if (p === 0 && !this.isGhost()) return '';
         return p === 1 ? 'blau' : 'rot';
     });

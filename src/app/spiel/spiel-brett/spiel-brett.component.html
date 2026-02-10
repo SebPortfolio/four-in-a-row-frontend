@@ -2,10 +2,10 @@
   <div class="row preview-row">
     <div class="col preview-cell" *ngFor="let reihe of game().board[0]; let colIndex = index">
       <app-spiel-stein
-        [player]="game().currentPlayer"
+        [playerId]="game().currentPlayerId"
         [isGhost]="selectedColumn() !== colIndex"
         *ngIf="hoveredColumn() === colIndex || selectedColumn() === colIndex"
-        [currentPlayer]="game().currentPlayer"
+        [currentPlayerId]="game().currentPlayerId"
       >
       </app-spiel-stein>
     </div>
@@ -21,13 +21,13 @@
         (click)="handleCellClick(colIndex)"
       >
         <app-spiel-stein
-          [player]="col"
+          [playerId]="col"
           [isGhost]="
             col === 0 &&
             (hoveredColumn() === colIndex || selectedColumn() === colIndex) &&
             getLandingRow(colIndex) === rowIndex
           "
-          [currentPlayer]="game().currentPlayer"
+          [currentPlayerId]="game().currentPlayerId"
         ></app-spiel-stein>
       </div>
     </div>

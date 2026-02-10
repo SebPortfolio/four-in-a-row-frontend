@@ -4,6 +4,8 @@ import { EinzelspielerMenuComponent } from './menu/einzelspieler-menu/einzelspie
 import { EinstellungenMenuComponent } from './menu/einstellungen-menu/einstellungen-menu.component';
 import { gameModeGuard } from './sonstiges/game-mode.guard';
 import { SpielManagementComponent } from './spiel/spiel-management/spiel-management.component';
+import { PlayerOverviewComponent } from './player/player-overview/player-overview.component';
+import { PlayerProfileComponent } from './player/player-profile/player-profile.component';
 
 export const routes: Routes = [
     { path: '', component: HauptmenuComponent },
@@ -11,6 +13,8 @@ export const routes: Routes = [
     { path: 'settings', component: EinstellungenMenuComponent },
     { path: ':gameMode/games', component: SpielManagementComponent, canActivate: [gameModeGuard] },
     { path: ':gameMode/games/:gameId', component: SpielManagementComponent, canActivate: [gameModeGuard] },
+    { path: 'players', component: PlayerOverviewComponent },
+    { path: 'players/:playerId', component: PlayerProfileComponent },
     {
         path: 'inital-angular-site',
         loadComponent: () =>
