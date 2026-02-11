@@ -1,33 +1,33 @@
 {
-  "root": true,
-  "ignorePatterns": ["projects/**/*"],
-  "plugins": ["@typescript-eslint", "unused-imports", "prettier"],
-  "overrides": [
-    {
-      "files": ["*.ts"],
-      "parser": "@typescript-eslint/parser",
-      "parserOptions": {
-        "project": ["tsconfig.json"],
-        "createDefaultProgram": true,
-        "sourceType": "module"
-      },
-      "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
-      "rules": {
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": "off",
-        "unused-imports/no-unused-imports": "error",
-        "unused-imports/no-unused-vars": [
-          "warn",
-          {
-            "vars": "all",
-            "varsIgnorePattern": "^_",
-            "args": "after-used",
-            "argsIgnorePattern": "^_"
-          }
-        ],
-        "@typescript-eslint/explicit-function-return-type": "error",
-        "@typescript-eslint/no-duplicate-enum-values": "error"
-      }
-    }
-  ]
+    "root": true,
+    "ignorePatterns": ["projects/**/*"],
+    "plugins": ["@typescript-eslint", "unused-imports", "prettier"],
+    "overrides": [
+        {
+            "files": ["*.ts"],
+            "parser": "@typescript-eslint/parser",
+            "parserOptions": {
+                "project": ["tsconfig.json"],
+                "createDefaultProgram": true,
+                "sourceType": "module"
+            },
+            "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+            "rules": {
+                "no-unused-vars": "off",
+                "@typescript-eslint/no-unused-vars": "off",
+                "unused-imports/no-unused-imports": "error",
+                "unused-imports/no-unused-vars": [
+                    "warn",
+                    {
+                        "vars": "all",
+                        "varsIgnorePattern": "^_",
+                        "args": "after-used",
+                        "argsIgnorePattern": "^_"
+                    }
+                ],
+                "@typescript-eslint/explicit-function-return-type": "error",
+                "@typescript-eslint/no-duplicate-enum-values": "error"
+            }
+        }
+    ]
 }

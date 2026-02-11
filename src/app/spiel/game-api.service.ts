@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { GameApi } from '../../../openapi';
 import { Observable } from 'rxjs';
+import { GameApi } from '../../../openapi';
 import { Game, GameCreateRequest, GameStatus, MoveRequest } from './game.model';
 
 @Injectable({

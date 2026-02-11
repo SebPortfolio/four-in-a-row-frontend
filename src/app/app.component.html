@@ -3,5 +3,5 @@
 <p>Enjoy playing the game!</p>
 
 <app-shared-dialog *ngIf="currentDialog()" [title]="currentDialog()!.title">
-  <ng-container *ngComponentOutlet="currentDialog()!.component"></ng-container>
+  <ng-container *ngComponentOutlet="currentDialog()!.component; inputs: currentDialog()!.data"></ng-container>
 </app-shared-dialog>

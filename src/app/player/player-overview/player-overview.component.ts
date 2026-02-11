@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { DialogService } from '../../common/dialog/dialog.service';
 import { CreatePlayerDialogComponent } from '../create-player-dialog/create-player-dialog.component';
-import { Player } from '../player.model';
-import { RouterLink } from '@angular/router';
 import { PlayerApiService } from '../player-api.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Player } from '../player.model';
 import { PlayerService } from '../player.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class PlayerOverviewComponent implements OnInit {
                 this.players = res;
             },
             error: (err: HttpErrorResponse) => {
-                this.playerService.handlePlayerError(err);
+                this.playerService.handlePlayerApiError(err);
             },
         });
     }

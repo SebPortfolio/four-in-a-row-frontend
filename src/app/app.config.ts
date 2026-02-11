@@ -1,9 +1,9 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
-import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { BASE_PATH } from '../../openapi';
+import { routes } from './app.routes';
 import { apiErrorInterceptor } from './sonstiges/api-error.interceptor';
 
 export const appConfig: ApplicationConfig = {

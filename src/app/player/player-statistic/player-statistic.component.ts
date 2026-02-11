@@ -1,6 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Player } from '../player.model';
-import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-player-statistic',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { PlayerApi } from '../../../openapi';
 import { Player, PlayerCreateRequest } from './player.model';
-import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',

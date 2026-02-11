@@ -1,5 +1,5 @@
-import { inject, Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 export class PlayerService {
     private router: Router = inject(Router);
 
-    public handlePlayerError(error: HttpErrorResponse): void {
+    public handlePlayerApiError(error: HttpErrorResponse): void {
         const errorPre = 'Player-Request fehlgeschlagen: ';
         console.error(errorPre, error);
 

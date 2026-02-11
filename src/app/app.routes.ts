@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { HauptmenuComponent } from './menu/hauptmenu/hauptmenu.component';
-import { EinzelspielerMenuComponent } from './menu/einzelspieler-menu/einzelspieler-menu.component';
 import { EinstellungenMenuComponent } from './menu/einstellungen-menu/einstellungen-menu.component';
-import { gameModeGuard } from './sonstiges/game-mode.guard';
-import { SpielManagementComponent } from './spiel/spiel-management/spiel-management.component';
+import { EinzelspielerMenuComponent } from './menu/einzelspieler-menu/einzelspieler-menu.component';
+import { HauptmenuComponent } from './menu/hauptmenu/hauptmenu.component';
 import { PlayerOverviewComponent } from './player/player-overview/player-overview.component';
 import { PlayerProfileComponent } from './player/player-profile/player-profile.component';
+import { gameModeGuard } from './sonstiges/game-mode.guard';
+import { SpielManagementComponent } from './spiel/spiel-management/spiel-management.component';
 
 export const routes: Routes = [
     { path: '', component: HauptmenuComponent },

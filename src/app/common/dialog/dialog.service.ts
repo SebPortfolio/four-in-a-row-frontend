@@ -1,17 +1,24 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { Subject } from 'rxjs';
 import { DialogConfig } from './dialog.model';
 
 @Injectable({ providedIn: 'root' })
 export class DialogService {
-    // WritableSignal ist die "interne" Version, in die man schreiben kann
-    private readonly _dialogState = signal<DialogConfig | null>(null);
-    readonly dialogState = this._dialogState.asReadonly();
+    private readonly _dialogState: WritableSignal<DialogConfig | null> = signal<DialogConfig | null>(null);
+    readonly dialogState: Signal<DialogConfig | null> = this._dialogState.asReadonly();
 
-    open(config: DialogConfig): void {
+    // Subject für das Ergebnis des aktuellen Dialogs
+    private resultSubject = new Subject<any>();
+
+    open(config: DialogConfig): Subject<any> {
+        this.resultSubject = new Subject<any>();
         this._dialogState.set(config);
+        return this.resultSubject;
     }
 
-    close(): void {
+    close(result?: any): void {
         this._dialogState.set(null);
+        this.resultSubject.next(result);
+        this.resultSubject.complete();
     }
 }

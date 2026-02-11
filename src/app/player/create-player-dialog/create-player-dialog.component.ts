@@ -1,11 +1,11 @@
+import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DialogService } from '../../common/dialog/dialog.service';
-import { CommonModule } from '@angular/common';
-import { Player, PlayerCreateRequest } from '../player.model';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import { DialogService } from '../../common/dialog/dialog.service';
 import { PlayerApiService } from '../player-api.service';
+import { Player, PlayerCreateRequest } from '../player.model';
 
 @Component({
     selector: 'app-create-player-dialog',

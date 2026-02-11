@@ -1,13 +1,13 @@
+import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, input, InputSignal, Signal } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
+import { catchError, of, switchMap } from 'rxjs';
 import { GameMode } from '../../common/types';
 import { GameApiService } from '../game-api.service';
-import { catchError, of, switchMap } from 'rxjs';
-import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { Game } from '../game.model';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { SpielBrettComponent } from '../spiel-brett/spiel-brett.component';
-import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-spiel-management',

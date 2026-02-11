@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { MenuTemplateComponent } from '../menu-template/menu-template.component';
 import { RotuingObj } from '../../common/types';
+import { MenuTemplateComponent } from '../menu-template/menu-template.component';
 
 @Component({
     selector: 'app-singleplayer-menu',

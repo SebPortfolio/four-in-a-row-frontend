@@ -1,9 +1,9 @@
-import { Component, input, InputSignal, OnInit, signal, WritableSignal } from '@angular/core';
-import { Game } from '../game.model';
 import { CommonModule } from '@angular/common';
-import { SpielSteinComponent } from '../spiel-stein/spiel-stein.component';
+import { Component, input, InputSignal, OnInit, signal, WritableSignal } from '@angular/core';
 import { GameApiService } from '../game-api.service';
+import { Game } from '../game.model';
 import { GameService } from '../game.service';
+import { SpielSteinComponent } from '../spiel-stein/spiel-stein.component';
 
 @Component({
     selector: 'app-spiel-brett',
