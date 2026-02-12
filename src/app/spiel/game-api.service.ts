@@ -9,8 +9,12 @@ import { Game, GameCreateRequest, GameMode, GameStatus, MoveRequest } from './ga
 export class GameApiService {
     constructor(private gameApi: GameApi) {}
 
-    getGames(gameStatus?: GameStatus): Observable<Game[]> {
-        return this.gameApi.getAllGames(gameStatus);
+    getAllGames(): Observable<Game[]> {
+        return this.gameApi.getAllGames();
+    }
+
+    getFilteredGames(gameStatus?: GameStatus, gameMode?: GameMode, playerId?: number) {
+        return this.gameApi.getAllGames(gameStatus, gameMode);
     }
 
     getGameById(gameId: number): Observable<Game> {
