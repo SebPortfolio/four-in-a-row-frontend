@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, input, InputSignal, Signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { catchError, of, switchMap } from 'rxjs';
-import { GameMode } from '../../common/types';
+import { GameModeUrl } from '../../common/types';
 import { GameApiService } from '../game-api.service';
 import { Game } from '../game.model';
+import { GameService } from '../game.service';
 import { SpielBrettComponent } from '../spiel-brett/spiel-brett.component';
 
 @Component({
@@ -17,9 +17,9 @@ import { SpielBrettComponent } from '../spiel-brett/spiel-brett.component';
     styleUrl: './spiel-management.component.less',
 })
 export class SpielManagementComponent {
-    constructor(private gameApiService: GameApiService, private router: Router) {}
+    constructor(private gameApiService: GameApiService, private gameService: GameService, private router: Router) {}
 
-    gameMode: InputSignal<GameMode> = input.required<GameMode>();
+    gameMode: InputSignal<GameModeUrl> = input.required<GameModeUrl>();
     gameId: InputSignal<number | null> = input<number | null>(null);
 
     // Wandelt gameId-Input (Signal) in Observable um, somit kann man auf Änderungen (z.B. ID-Wechsel in der URL) reagieren
@@ -31,44 +31,17 @@ export class SpielManagementComponent {
                     // FALL 1: ID vorhanden -> Spiel laden
                     return this.gameApiService.getGameById(gameId).pipe(
                         catchError(err => {
-                            this.handleGameError(err);
+                            this.gameService.handleGameApiError(err);
                             return of({} as Game);
                         })
                     );
                 } else {
                     // FALL 2: Keine ID -> Neues Spiel erstellen
-                    return this.gameApiService.createGame(1, 2).pipe(
-                        // TODO: korrekte Spieler-IDs verwenden
-                        switchMap(newGame => {
-                            this.router.navigate([this.gameMode(), 'games', newGame.id], { replaceUrl: true });
-                            return of(newGame);
-                        }),
-                        catchError(err => {
-                            this.handleGameError(err);
-                            return of({} as Game);
-                        })
-                    );
+                    console.warn('kein Spiel mit dieser ID existiert, weiterleiten zur Spielerstellung');
+                    this.router.navigate([this.gameMode(), 'games', 'new']);
+                    return of({} as Game);
                 }
             })
         )
     );
-
-    spielStarten(): void {}
-    spielLaden(): void {}
-
-    private handleGameError(error: HttpErrorResponse): void {
-        console.error('Fehler beim Erstellen/Laden des Spiels:', error);
-        switch (error.status) {
-            case 404:
-                alert('Spiel nicht gefunden.');
-                break;
-            case 500:
-                alert('Serverfehler. Bitte versuchen Sie es später erneut.');
-                break;
-            default:
-                alert('Ein unbekannter Fehler ist aufgetreten.');
-        }
-
-        this.router.navigate(['/singleplayer']);
-    }
 }

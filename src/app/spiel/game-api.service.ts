@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GameApi } from '../../../openapi';
-import { Game, GameCreateRequest, GameStatus, MoveRequest } from './game.model';
+import { Game, GameCreateRequest, GameMode, GameStatus, MoveRequest } from './game.model';
 
 @Injectable({
     providedIn: 'root',
@@ -19,10 +19,11 @@ export class GameApiService {
         return this.gameApi.getGameById(gameId);
     }
 
-    createGame(player1Id: number, player2Id: number): Observable<Game> {
+    createGame(player1Id: number, player2Id: number, gameMode: GameMode): Observable<Game> {
         const gameCreateRequest: GameCreateRequest = {
             player1Id: player1Id,
             player2Id: player2Id,
+            gameMode: gameMode,
         };
         return this.gameApi.createGame(gameCreateRequest);
     }
@@ -59,6 +60,7 @@ export class GameApiService {
             ],
             currentPlayerId: 1,
             status: GameStatus.InProgress,
+            mode: GameMode.Singleplayer,
         };
     }
 }

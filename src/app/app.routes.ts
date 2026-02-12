@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { EinstellungenMenuComponent } from './menu/einstellungen-menu/einstellungen-menu.component';
 import { EinzelspielerMenuComponent } from './menu/einzelspieler-menu/einzelspieler-menu.component';
+import { GameCreationComponent } from './menu/game-creation/game-creation.component';
 import { HauptmenuComponent } from './menu/hauptmenu/hauptmenu.component';
 import { PlayerOverviewComponent } from './player/player-overview/player-overview.component';
 import { PlayerProfileComponent } from './player/player-profile/player-profile.component';
@@ -11,6 +12,7 @@ export const routes: Routes = [
     { path: '', component: HauptmenuComponent },
     { path: 'singleplayer', component: EinzelspielerMenuComponent },
     { path: 'settings', component: EinstellungenMenuComponent },
+    { path: ':gameMode/new', component: GameCreationComponent },
     { path: ':gameMode/games', component: SpielManagementComponent, canActivate: [gameModeGuard] },
     { path: ':gameMode/games/:gameId', component: SpielManagementComponent, canActivate: [gameModeGuard] },
     { path: 'players', component: PlayerOverviewComponent },

@@ -14,7 +14,8 @@ export class HauptmenuComponent {
     titel: string = 'Hauptmenü';
     menuPoints: RotuingObj[] = [
         { label: 'Einzelspieler', route: 'singleplayer' },
-        { label: 'Mehrspieler (lokal)', route: 'multiplayer-local' },
+        { label: 'Mehrspieler (lokal)', route: 'local' },
+        { label: 'Mehrspieler (online)', route: 'online' },
         { label: 'Einstellungen', route: 'settings' },
         { label: 'Spieler', route: 'players' },
         { label: 'Hilfe', route: 'help' },
