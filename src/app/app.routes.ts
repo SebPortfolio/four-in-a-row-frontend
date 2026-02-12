@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { EinstellungenMenuComponent } from './menu/einstellungen-menu/einstellungen-menu.component';
 import { EinzelspielerMenuComponent } from './menu/einzelspieler-menu/einzelspieler-menu.component';
 import { GameCreationComponent } from './menu/game-creation/game-creation.component';
+import { GameLoadingComponent } from './menu/game-loading/game-loading.component';
 import { HauptmenuComponent } from './menu/hauptmenu/hauptmenu.component';
 import { MehrspielerLokalMenuComponent } from './menu/mehrspieler-lokal-menu/mehrspieler-lokal-menu.component';
 import { PlayerOverviewComponent } from './player/player-overview/player-overview.component';
@@ -15,6 +16,7 @@ export const routes: Routes = [
     { path: 'local', component: MehrspielerLokalMenuComponent },
     { path: 'settings', component: EinstellungenMenuComponent },
     { path: ':gameMode/new', component: GameCreationComponent },
+    { path: ':gameMode/load', component: GameLoadingComponent },
     { path: ':gameMode/games', component: SpielManagementComponent, canActivate: [gameModeGuard] },
     { path: ':gameMode/games/:gameId', component: SpielManagementComponent, canActivate: [gameModeGuard] },
     { path: 'players', component: PlayerOverviewComponent },
