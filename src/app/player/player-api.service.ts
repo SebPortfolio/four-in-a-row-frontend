@@ -13,6 +13,10 @@ export class PlayerApiService {
         return this.playerApi.getAllPlayers();
     }
 
+    public getFilteredPlayers(searchTerm: string, limit?: number) {
+        return this.playerApi.getAllPlayers(searchTerm, limit);
+    }
+
     public getPlayerById(playerId: number): Observable<Player> {
         return this.playerApi.getPlayerById(playerId);
     }
