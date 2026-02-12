@@ -1,0 +1,22 @@
+<ng-select
+  [items]="items$ | async"
+  [loading]="loading"
+  [typeahead]="searchInput$"
+  [bindLabel]="bindLabel"
+  [placeholder]="placeholder"
+  [(ngModel)]="internalValue"
+  (change)="selected.emit($event)"
+  [clearable]="true"
+>
+  <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+    <span [innerHTML]="item[bindLabel] | highlight: search"></span>
+  </ng-template>
+
+  <ng-template ng-header-tmp *ngIf="searchTermLength < minTermLength">
+    <small class="form-text text-muted">Tippe mindestens {{ minTermLength }} Zeichen zum Suchen ...</small>
+  </ng-template>
+
+  <ng-template ng-notfound-tmp let-searchTerm="searchTerm" *ngIf="searchTermLength >= minTermLength">
+    <div class="ng-value p-2">Keine Ergebnisse für "{{ searchTerm }}"</div>
+  </ng-template>
+</ng-select>
