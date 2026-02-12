@@ -3,6 +3,7 @@ import { EinstellungenMenuComponent } from './menu/einstellungen-menu/einstellun
 import { EinzelspielerMenuComponent } from './menu/einzelspieler-menu/einzelspieler-menu.component';
 import { GameCreationComponent } from './menu/game-creation/game-creation.component';
 import { HauptmenuComponent } from './menu/hauptmenu/hauptmenu.component';
+import { MehrspielerLokalMenuComponent } from './menu/mehrspieler-lokal-menu/mehrspieler-lokal-menu.component';
 import { PlayerOverviewComponent } from './player/player-overview/player-overview.component';
 import { PlayerProfileComponent } from './player/player-profile/player-profile.component';
 import { gameModeGuard } from './sonstiges/game-mode.guard';
@@ -11,6 +12,7 @@ import { SpielManagementComponent } from './spiel/spiel-management/spiel-managem
 export const routes: Routes = [
     { path: '', component: HauptmenuComponent },
     { path: 'singleplayer', component: EinzelspielerMenuComponent },
+    { path: 'local', component: MehrspielerLokalMenuComponent },
     { path: 'settings', component: EinstellungenMenuComponent },
     { path: ':gameMode/new', component: GameCreationComponent },
     { path: ':gameMode/games', component: SpielManagementComponent, canActivate: [gameModeGuard] },
