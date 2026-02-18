@@ -1,35 +1,40 @@
 <div class="col-md-6 offset-md-3 spiel-container">
-  <div class="row preview-row">
-    <div class="col preview-cell" *ngFor="let reihe of game().board[0]; let colIndex = index">
-      <app-spiel-stein
-        [playerId]="game().currentPlayerId"
-        [isGhost]="selectedColumn() !== colIndex"
-        *ngIf="hoveredColumn() === colIndex || selectedColumn() === colIndex"
-        [currentPlayerId]="game().currentPlayerId"
-      >
-      </app-spiel-stein>
+  @if (movePossible()) {
+    <div class="row preview-row">
+      @for (reihe of game()!.board[0]; track $index; let colIndex = $index) {
+        <div class="col preview-cell">
+          @if (hoveredColumn() === colIndex || selectedColumn() === colIndex) {
+            <app-spiel-stein
+              [playerId]="game()!.currentPlayerId"
+              [isGhost]="selectedColumn() !== colIndex"
+              [currentPlayerId]="game()!.currentPlayerId"
+            >
+            </app-spiel-stein>
+          }
+        </div>
+      }
     </div>
-  </div>
-
-  <div class="spiel-brett-gitter">
-    <div class="row" *ngFor="let reihe of game().board; let rowIndex = index">
-      <div
-        class="col einzel-feld"
-        *ngFor="let col of reihe; let colIndex = index"
-        (mouseenter)="hoveredColumn.set(colIndex)"
-        (mouseleave)="hoveredColumn.set(null)"
-        (click)="handleCellClick(colIndex)"
-      >
-        <app-spiel-stein
-          [playerId]="col"
-          [isGhost]="
-            col === 0 &&
-            (hoveredColumn() === colIndex || selectedColumn() === colIndex) &&
-            getLandingRow(colIndex) === rowIndex
-          "
-          [currentPlayerId]="game().currentPlayerId"
-        ></app-spiel-stein>
-      </div>
+  }
+  @if (game()) {
+    <div class="spiel-brett-gitter">
+      @for (reihe of game()!.board; track $index; let rowIndex = $index) {
+        <div class="row">
+          @for (col of reihe; track $index; let colIndex = $index) {
+            <div
+              class="col einzel-feld"
+              (mouseenter)="hoveredColumn.set(colIndex)"
+              (mouseleave)="hoveredColumn.set(null)"
+              (click)="handleCellClick(colIndex)"
+            >
+              <app-spiel-stein
+                [playerId]="col"
+                [isGhost]="isGhost(col, colIndex, rowIndex)"
+                [currentPlayerId]="game()!.currentPlayerId"
+              ></app-spiel-stein>
+            </div>
+          }
+        </div>
+      }
     </div>
-  </div>
+  }
 </div>

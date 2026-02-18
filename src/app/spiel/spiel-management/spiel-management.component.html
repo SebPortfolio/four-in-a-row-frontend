@@ -1,2 +1,11 @@
 <h2>Spiel-Management</h2>
-<app-spiel-brett *ngIf="game()" [game]="game()!"></app-spiel-brett>
+@if (completedGame) {
+  @if (getWinnerName()) {
+    <span>Sieger: {{ getWinnerName() }}</span>
+  } @else {
+    <span>Untentschieden</span>
+  }
+}
+@if (game()) {
+  <app-spiel-brett [gameInput]="game()!" (gameCompleted)="onComplete($event)"></app-spiel-brett>
+}
