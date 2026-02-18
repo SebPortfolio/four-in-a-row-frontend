@@ -1,19 +1,11 @@
-<div *ngIf="players; else loading">
-  <div *ngIf="players.length > 0; else empty">
-    <ul>
-      <li *ngFor="let player of players">
-        <a [routerLink]="['/players', player.id]">{{ player.username }}</a>
-      </li>
-    </ul>
-  </div>
+<div class="col-md-12">
+  @if (players) {
+    <app-datatable [config]="tableConfig" [data]="players"></app-datatable>
+  } @else {
+    <p>Lade Spieler ...</p>
+  }
 </div>
 
-<ng-template #loading>
-  <p>Lade Spieler ...</p>
-</ng-template>
-
-<ng-template #empty>
-  <p>Keine Spieler gefunden.</p>
-</ng-template>
-
-<button class="fab" title="Neuen Spieler erstellen" (click)="onCreatePlayer()"><span>+</span></button>
+<button class="create-btn" title="Neuen Spieler erstellen" (click)="onCreatePlayer()">
+  <fa-icon [icon]="faUserPlus"></fa-icon>
+</button>

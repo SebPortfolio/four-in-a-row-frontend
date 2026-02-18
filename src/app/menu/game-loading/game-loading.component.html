@@ -1,1 +1,6 @@
 <p>game-loading works!</p>
+@if (testConfig) {
+  <app-datatable [data]="testData" [config]="testConfig"></app-datatable>
+} @else {
+  <p>Lade...</p>
+}
