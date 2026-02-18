@@ -31,21 +31,15 @@
         [class.is-invalid]="playerForm.get('email')?.invalid && playerForm.get('email')?.touched"
         placeholder="name@beispiel.de"
       />
-      <div class="invalid-feedback">
-        Bitte gib eine gültige E-Mail-Adresse an.
-      </div>
+      <div class="invalid-feedback">Bitte gib eine gültige E-Mail-Adresse an.</div>
     </div>
 
     <div class="row mt-4">
       <div class="col-6">
-        <button type="button" class="btn btn-danger w-100" (click)="onCancel()">
-          Abbrechen
-        </button>
+        <button type="button" class="btn btn-danger w-100" (click)="onCancel()">Abbrechen</button>
       </div>
       <div class="col-6">
-        <button type="submit" class="btn btn-primary w-100" [disabled]="playerForm.invalid">
-          Spieler erstellen
-        </button>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="playerForm.invalid">Spieler erstellen</button>
       </div>
     </div>
   </form>

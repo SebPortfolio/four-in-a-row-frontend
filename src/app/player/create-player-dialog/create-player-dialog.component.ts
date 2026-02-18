@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { DialogService } from '../../common/dialog/dialog.service';
 import { PlayerApiService } from '../player-api.service';
 import { Player, PlayerCreateRequest } from '../player.model';
@@ -17,8 +16,7 @@ export class CreatePlayerDialogComponent {
     constructor(
         private fb: FormBuilder,
         private dialogService: DialogService,
-        private playerApiService: PlayerApiService,
-        private router: Router
+        private playerApiService: PlayerApiService
     ) {}
 
     playerForm!: FormGroup;
@@ -40,15 +38,13 @@ export class CreatePlayerDialogComponent {
         if (this.playerForm.valid) {
             const request: PlayerCreateRequest = this.playerForm.getRawValue();
 
-            console.log('Finaler Request für das Backend:', request);
-
             this.playerApiService.createPlayer(request).subscribe({
                 next: (player: Player) => {
-                    this.dialogService.close();
-                    this.router.navigate(['players', player.id]);
+                    this.dialogService.close(player);
                 },
                 error: (err: HttpErrorResponse) => {
                     console.error('Backend-Fehler: ', err);
+                    this.dialogService.close();
                 },
             });
         }
