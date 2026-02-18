@@ -9,10 +9,12 @@ export interface ITranslateResource {
 }
 
 export class TranslateHttpLoader implements TranslateLoader {
-    constructor(private http: HttpClient, private resources: ITranslateResource[]) {}
+    constructor(
+        private http: HttpClient,
+        private resources: ITranslateResource[]
+    ) {}
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public getTranslation(lang: string): Observable<any> {
+    public getTranslation(lang: string): Observable<ITranslateResource> {
         // Für jede Ressource (Datei) einen HTTP GET Request bauen
         const requests = this.resources.map(resource => this.http.get(`${resource.prefix}${lang}${resource.suffix}`));
 

@@ -1,0 +1,4 @@
+# Ignoriere Konfigurationsdateien für Prettier-Formatierung
+package.json
+package-lock.json
+tsconfig.json

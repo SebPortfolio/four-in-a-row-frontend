@@ -36,7 +36,7 @@ export class GameCreationComponent implements OnInit {
         console.log('GameMode: ', this.gameMode());
     }
 
-    readonly searchProvider = (searchTerm: string) => this.searchPlayerByUsername(searchTerm);
+    readonly searchProvider = (searchTerm: string): Observable<Player[]> => this.searchPlayerByUsername(searchTerm);
 
     protected searchPlayerByUsername(searchTerm: string): Observable<Player[]> {
         return this.playerApiService.getAllPlayers().pipe(
@@ -65,14 +65,14 @@ export class GameCreationComponent implements OnInit {
         }
     }
 
-    private clearSelected(playerSlot: 1 | 2) {
+    private clearSelected(playerSlot: 1 | 2): void {
         console.warn('Doppelbelegung verhindert!');
 
         this.clearSelectUi(playerSlot);
         this.clearInternPlayer(playerSlot);
     }
 
-    private clearInternPlayer(playerSlot: 1 | 2) {
+    private clearInternPlayer(playerSlot: 1 | 2): void {
         if (playerSlot === 1) {
             this.player1 = undefined;
         } else {
