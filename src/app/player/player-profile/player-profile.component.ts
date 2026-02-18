@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, input, OnInit, Signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +13,7 @@ import { PlayerService } from '../player.service';
 @Component({
     selector: 'app-player-profile',
     standalone: true,
-    imports: [PlayerStatisticComponent, CommonModule, FontAwesomeModule],
+    imports: [PlayerStatisticComponent, FontAwesomeModule],
     templateUrl: './player-profile.component.html',
     styleUrl: './player-profile.component.less',
 })

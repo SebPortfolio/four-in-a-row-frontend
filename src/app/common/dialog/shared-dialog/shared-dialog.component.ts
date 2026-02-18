@@ -1,11 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DialogService } from '../dialog.service';
 
 @Component({
     selector: 'app-shared-dialog',
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './shared-dialog.component.html',
     styleUrl: './shared-dialog.component.less',
 })

@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, computed, input, InputSignal } from '@angular/core';
 
 @Component({
     selector: 'app-spiel-stein',
     standalone: true,
-    imports: [CommonModule],
+    imports: [NgClass],
     templateUrl: './spiel-stein.component.html',
     styleUrl: './spiel-stein.component.less',
 })

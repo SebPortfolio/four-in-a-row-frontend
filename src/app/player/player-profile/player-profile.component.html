@@ -6,7 +6,9 @@
         <div class="col-md-8">{{ player?.username }}</div>
       </div>
     </div>
-    <app-player-statistic class="col-md-6" *ngIf="player" [player]="player!"></app-player-statistic>
+    @if (player) {
+      <app-player-statistic class="col-md-6" [player]="player!"></app-player-statistic>
+    }
   </div>
 </div>
 <button (click)="onDelete()" class="btn btn-danger" title="Löschen" aria-label="Spieler löschen">

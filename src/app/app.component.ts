@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, computed, Signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { DialogConfig } from './common/dialog/dialog.model';
@@ -8,7 +7,7 @@ import { SharedDialogComponent } from './common/dialog/shared-dialog/shared-dial
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [CommonModule, RouterOutlet, SharedDialogComponent],
+    imports: [RouterOutlet, SharedDialogComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.less',
 })

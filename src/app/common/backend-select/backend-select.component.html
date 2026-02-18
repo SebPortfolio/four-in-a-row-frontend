@@ -12,11 +12,15 @@
     <span [innerHTML]="item[bindLabel] | highlight: search"></span>
   </ng-template>
 
-  <ng-template ng-header-tmp *ngIf="searchTermLength < minTermLength">
-    <small class="form-text text-muted">Tippe mindestens {{ minTermLength }} Zeichen zum Suchen ...</small>
-  </ng-template>
+  @if (searchTermLength < minTermLength) {
+    <ng-template ng-header-tmp>
+      <small class="form-text text-muted">Tippe mindestens {{ minTermLength }} Zeichen zum Suchen ...</small>
+    </ng-template>
+  }
 
-  <ng-template ng-notfound-tmp let-searchTerm="searchTerm" *ngIf="searchTermLength >= minTermLength">
-    <div class="ng-value p-2">Keine Ergebnisse für "{{ searchTerm }}"</div>
-  </ng-template>
+  @if (searchTermLength >= minTermLength) {
+    <ng-template ng-notfound-tmp let-searchTerm="searchTerm">
+      <div class="ng-value p-2">Keine Ergebnisse für "{{ searchTerm }}"</div>
+    </ng-template>
+  }
 </ng-select>

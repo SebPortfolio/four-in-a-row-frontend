@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Pipe({
     name: 'highlight',
@@ -8,7 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class HighlightPipe implements PipeTransform {
     constructor(private sanitizer: DomSanitizer) {}
 
-    transform(value: string, search: string | null): any {
+    transform(value: string, search: string | null): SafeHtml | string {
         if (!value) return '';
         if (!search || search.length === 0) return value;
         const re = new RegExp(search, 'gi'); // 'gi' für Case-Insensitive

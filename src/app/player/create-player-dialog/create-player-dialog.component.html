@@ -12,8 +12,12 @@
         autofocus
       />
       <div class="invalid-feedback">
-        <span *ngIf="playerForm.get('username')?.errors?.['required']">Name wird benötigt.</span>
-        <span *ngIf="playerForm.get('username')?.errors?.['minlength']">Mindestens 3 Zeichen erforderlich.</span>
+        @if (playerForm.get('username')?.errors?.['required']) {
+          <span>Name wird benötigt.</span>
+        }
+        @if (playerForm.get('username')?.errors?.['minlength']) {
+          <span>Mindestens 3 Zeichen erforderlich.</span>
+        }
       </div>
     </div>
 

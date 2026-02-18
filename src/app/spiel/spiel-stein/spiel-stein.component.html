@@ -1,3 +1,5 @@
-<div class="spiel-stein" [ngClass]="stoneClass()" [class.ghost]="isGhost()" *ngIf="playerId() !== 0 || isGhost()">
-  {{ playerId() !== 0 ? playerId() : '' }}
-</div>
+@if (playerId() !== 0 || isGhost()) {
+  <div class="spiel-stein" [ngClass]="stoneClass()" [class.ghost]="isGhost()">
+    {{ playerId() !== 0 ? playerId() : '' }}
+  </div>
+}

@@ -9,9 +9,11 @@
       <ng-content></ng-content>
     </section>
 
-    <footer class="dialog-footer" *ngIf="showFooter">
-      <button class="btn-secondary" (click)="onClose()">Abbrechen</button>
-      <ng-content select="[footer-actions]"></ng-content>
-    </footer>
+    @if (showFooter) {
+      <footer class="dialog-footer">
+        <button class="btn-secondary" (click)="onClose()">Abbrechen</button>
+        <ng-content select="[footer-actions]"></ng-content>
+      </footer>
+    }
   </div>
 </div>

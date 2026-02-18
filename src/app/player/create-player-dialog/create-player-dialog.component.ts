@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,7 +9,7 @@ import { Player, PlayerCreateRequest } from '../player.model';
 @Component({
     selector: 'app-create-player-dialog',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [ReactiveFormsModule],
     templateUrl: './create-player-dialog.component.html',
     styleUrl: './create-player-dialog.component.less',
 })

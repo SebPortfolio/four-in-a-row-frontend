@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RotuingObj } from '../../common/types';
 import { MenuTemplateComponent } from '../menu-template/menu-template.component';
@@ -6,7 +5,7 @@ import { MenuTemplateComponent } from '../menu-template/menu-template.component'
 @Component({
     selector: 'app-main-menu',
     standalone: true,
-    imports: [CommonModule, MenuTemplateComponent],
+    imports: [MenuTemplateComponent],
     templateUrl: './hauptmenu.component.html',
     styleUrl: './hauptmenu.component.less',
 })

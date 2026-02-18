@@ -2,6 +2,8 @@
 <router-outlet></router-outlet>
 <p>Enjoy playing the game!</p>
 
-<app-shared-dialog *ngIf="currentDialog()" [title]="currentDialog()!.title">
-  <ng-container *ngComponentOutlet="currentDialog()!.component; inputs: currentDialog()!.data"></ng-container>
-</app-shared-dialog>
+@if (currentDialog()) {
+  <app-shared-dialog [title]="currentDialog()!.title">
+    <ng-container *ngComponentOutlet="currentDialog()!.component; inputs: currentDialog()!.data"></ng-container>
+  </app-shared-dialog>
+}

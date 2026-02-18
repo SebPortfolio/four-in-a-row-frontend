@@ -1,18 +1,20 @@
-<div *ngIf="player" class="col-md-12">
-  <div class="row">
-    <div class="col-md-6">Gespielte Spiele:</div>
-    <div class="col-md-6">{{ player.totalGames }}</div>
+@if (player) {
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">Gespielte Spiele:</div>
+      <div class="col-md-6">{{ player.totalGames }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">Gewonnen:</div>
+      <div class="col-md-6">{{ player.gamesWon }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">Verloren:</div>
+      <div class="col-md-6">{{ player.gamesLost }}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">Aufgegeben:</div>
+      <div class="col-md-6">{{ player.gamesSurrendered }}</div>
+    </div>
   </div>
-  <div class="row">
-    <div class="col-md-6">Gewonnen:</div>
-    <div class="col-md-6">{{ player.gamesWon }}</div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">Verloren:</div>
-    <div class="col-md-6">{{ player.gamesLost }}</div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">Aufgegeben:</div>
-    <div class="col-md-6">{{ player.gamesSurrendered }}</div>
-  </div>
-</div>
+}

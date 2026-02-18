@@ -1,4 +1,5 @@
-import { CommonModule } from '@angular/common';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { AsyncPipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
@@ -8,14 +9,15 @@ import { HighlightPipe } from '../pipes/highlight.pipe';
 @Component({
     selector: 'app-backend-select',
     standalone: true,
-    imports: [CommonModule, FormsModule, NgSelectModule, HighlightPipe],
+    imports: [AsyncPipe, FormsModule, NgSelectModule, HighlightPipe],
     templateUrl: './backend-select.component.html',
     styleUrl: './backend-select.component.less',
 })
 export class BackendSelectComponent {
-    @Input() placeholder = 'Suchen...';
-    @Input() minTermLength = 3;
-    @Input() bindLabel = 'Wert';
+    @Input() id: string = 'id';
+    @Input() placeholder: string = 'Suchen...';
+    @Input() minTermLength: number = 3;
+    @Input() bindLabel: string = 'Wert';
     @Input() searchFn!: (term: string) => Observable<any[]>;
 
     @ViewChild(NgSelectComponent) selectComponent!: NgSelectComponent;
@@ -41,7 +43,7 @@ export class BackendSelectComponent {
     searchInput$ = new Subject<string>();
     searchTermLength: number = 0;
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.items$ = concat(
             of([]), // Initial leer
             this.searchInput$.pipe(
@@ -66,7 +68,7 @@ export class BackendSelectComponent {
         );
     }
 
-    public clear() {
+    public clear(): void {
         this.internalValue = null;
         if (this.selectComponent) {
             this.selectComponent.clearModel();
