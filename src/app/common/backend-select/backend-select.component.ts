@@ -14,7 +14,7 @@ import { HighlightPipe } from '../pipes/highlight.pipe';
     styleUrl: './backend-select.component.less',
 })
 export class BackendSelectComponent {
-    @Input() id: string = 'id';
+    @Input() labelForId: string = '';
     @Input() placeholder: string = 'Suchen...';
     @Input() minTermLength: number = 3;
     @Input() bindLabel: string = 'Wert';

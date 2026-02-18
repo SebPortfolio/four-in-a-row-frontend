@@ -3,6 +3,7 @@
     <label class="col-md-4" for="player1Select">Spieler 1:</label>
     <div class="col-md-6">
       <app-backend-select
+        [labelForId]="'player1Select'"
         [placeholder]="'User suchen ...'"
         [minTermLength]="3"
         [bindLabel]="'username'"
@@ -13,9 +14,10 @@
     </div>
   </div>
   <div class="row">
-    <label class="col-md-4">Spieler 2:</label>
+    <label class="col-md-4" for="player2Select">Spieler 2:</label>
     <div class="col-md-6">
       <app-backend-select
+        [labelForId]="'player2Select'"
         [placeholder]="'User suchen ...'"
         [minTermLength]="3"
         [bindLabel]="'username'"
