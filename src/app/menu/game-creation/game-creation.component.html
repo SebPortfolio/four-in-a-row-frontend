@@ -29,7 +29,9 @@
   </div>
   <div class="row">
     <div class="col-md-10 flex-end">
-      <button class="btn btn-primary" title="Spiel starten" (click)="onStart()">Start</button>
+      <button class="btn btn-primary" title="Spiel starten" (click)="onStart()" [disabled]="startDisabled()">
+        Start
+      </button>
     </div>
   </div>
 </div>

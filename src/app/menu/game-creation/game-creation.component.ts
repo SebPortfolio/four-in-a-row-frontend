@@ -85,6 +85,10 @@ export class GameCreationComponent implements OnInit {
         componentToClear.clear();
     }
 
+    startDisabled(): boolean {
+        return !this.player1 && !this.player2;
+    }
+
     protected onStart(): void {
         if (this.player1 && this.player2) {
             const apiMode = mapGameModeUrlToEnum(this.gameMode());
@@ -98,6 +102,8 @@ export class GameCreationComponent implements OnInit {
                     this.gameService.handleGameApiError(err);
                 },
             });
+        } else {
+            console.warn('Player 1 und/oder 2 sind nicht definiert: ', this.player1, this.player2);
         }
     }
 }
