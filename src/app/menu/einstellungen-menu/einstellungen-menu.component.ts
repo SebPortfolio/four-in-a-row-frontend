@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RotuingObj } from '../../common/types';
+import { RoutingObj } from '../../common/types';
 import { MenuTemplateComponent } from '../menu-template/menu-template.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { MenuTemplateComponent } from '../menu-template/menu-template.component'
 })
 export class EinstellungenMenuComponent {
     titel: string = 'Einstellungen';
-    menuPoints: RotuingObj[] = [
+    menuPoints: RoutingObj[] = [
         { label: 'Gameplay', route: 'gameplay' },
         { label: 'Grafik', route: 'grafics' },
         { label: 'Audio', route: 'audio' },

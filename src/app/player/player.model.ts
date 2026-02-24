@@ -1,5 +1,3 @@
-import { CreatePlayerRequestWdto, PlayerWdto } from '../../../openapi';
+import { PlayerWdto } from '../../../openapi';
 
 export type Player = PlayerWdto;
-
-export type PlayerCreateRequest = CreatePlayerRequestWdto;

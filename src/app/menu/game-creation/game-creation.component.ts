@@ -42,7 +42,7 @@ export class GameCreationComponent implements OnInit {
         return this.playerApiService.getAllPlayers().pipe(
             map(players => {
                 console.log(players);
-                return players.filter(player => player.username.toLowerCase().includes(searchTerm.toLowerCase()));
+                return players.filter(player => player.displayName.toLowerCase().includes(searchTerm.toLowerCase()));
             })
         );
     }

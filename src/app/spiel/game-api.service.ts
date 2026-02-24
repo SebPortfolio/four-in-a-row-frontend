@@ -13,13 +13,11 @@ export class GameApiService {
         return this.gameApi.getAllGames();
     }
 
-    getFilteredGames(gameStatus?: GameStatus, gameMode?: GameMode, playerId?: number) {
-        return this.gameApi.getAllGames(gameStatus, gameMode);
+    getFilteredGames(gameStatus?: GameStatus, gameMode?: GameMode, playerId?: number): Observable<Game[]> {
+        return this.gameApi.getAllGames(gameStatus, gameMode, playerId);
     }
 
     getGameById(gameId: number): Observable<Game> {
-        //console.log('MOCKING: Fetching game with ID:', gameId);
-        //return of(this.mockGame());
         return this.gameApi.getGameById(gameId);
     }
 
@@ -39,32 +37,5 @@ export class GameApiService {
 
     deleteGame(gameId: number): Observable<Game> {
         return this.gameApi.deleteGame(gameId);
-    }
-
-    private mockGame(): Game {
-        return {
-            id: 1,
-            player1: {
-                id: 0,
-                username: 'Spieler 1',
-                registeredOn: '2023-01-01T00:00:00Z',
-            },
-            player2: {
-                id: 1,
-                username: 'Spieler 2',
-                registeredOn: '2024-12-01T00:00:00Z',
-            },
-            board: [
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 1, 0, 0, 0],
-                [0, 0, 0, 2, 0, 0, 0],
-                [0, 1, 2, 1, 0, 0, 0],
-                [2, 1, 1, 2, 0, 0, 0],
-            ],
-            currentPlayerId: 1,
-            status: GameStatus.InProgress,
-            mode: GameMode.Singleplayer,
-        };
     }
 }
