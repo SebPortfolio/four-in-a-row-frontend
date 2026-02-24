@@ -1,5 +1,5 @@
 import { CanActivateFn } from '@angular/router';
-import { GameModeUrl } from '../common/types';
+import { GameModeUrl } from '../../common/types';
 
 export const gameModeGuard: CanActivateFn = route => {
     const gameMode = route.paramMap.get('gameMode');
