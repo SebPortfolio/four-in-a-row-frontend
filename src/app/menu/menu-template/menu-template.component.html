@@ -1,8 +1,12 @@
 <h2>{{ titel }}</h2>
 <div class="col-md-12 menu">
   @for (point of menuPoints; track point.label) {
-    <button class="col-md-2 btn btn-primary" [routerLink]="point.route">
+    <a
+      class="col-md-2 btn btn-primary"
+      [routerLink]="point.absolutePath ? ['/', point.route] : [point.route]"
+      routerLinkActive="active-class"
+    >
       {{ point.label }}
-    </button>
+    </a>
   }
 </div>

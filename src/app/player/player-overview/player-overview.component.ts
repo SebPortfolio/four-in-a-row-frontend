@@ -4,7 +4,6 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { DatatableComponent, TableColumn, TableConfig } from '../../common/datatable/datatable/datatable.component';
 import { DialogService } from '../../common/dialog/dialog.service';
-import { CreatePlayerDialogComponent } from '../create-player-dialog/create-player-dialog.component';
 import { PlayerApiService } from '../player-api.service';
 import { Player } from '../player.model';
 import { PlayerService } from '../player.service';
@@ -33,19 +32,7 @@ export class PlayerOverviewComponent implements OnInit {
         this.loadPlayers();
     }
 
-    onCreatePlayer(): void {
-        this.dialogService
-            .open({
-                title: 'Neuen Spieler anlegen',
-                component: CreatePlayerDialogComponent,
-            })
-            .subscribe((res?: Player) => {
-                console.log('dialog res: ', res);
-                if (res) {
-                    this.loadPlayers();
-                }
-            });
-    }
+    onCreatePlayer(): void {}
 
     private loadPlayers(): void {
         this.playerApiService.getAllPlayers().subscribe({
@@ -71,7 +58,7 @@ export class PlayerOverviewComponent implements OnInit {
     private getColumns(): TableColumn[] {
         return [
             { name: 'Id', prop: 'id', minWidth: 50, width: 80, maxWidth: 100 },
-            { name: 'Username', prop: 'username', width: 300 },
+            { name: 'Username', prop: 'displayName', width: 300 },
             { name: 'Games played', prop: 'totalGames', minWidth: 110, width: 160 },
             { name: 'Games won', prop: 'gamesWon', minWidth: 100, width: 160 },
             { name: 'Games lost', prop: 'gamesLost', minWidth: 100, width: 160 },

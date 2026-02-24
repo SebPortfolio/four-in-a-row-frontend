@@ -57,10 +57,10 @@ export class SpielManagementComponent {
     getWinnerName(): string | null {
         switch (this.completedGame?.result) {
             case GameResult.Player1Won: {
-                return this.completedGame.player1.username;
+                return this.completedGame.player1.displayName;
             }
             case GameResult.Player2Won: {
-                return this.completedGame.player2.username;
+                return this.completedGame.player2.displayName;
             }
             case GameResult.Draw: {
                 return null;

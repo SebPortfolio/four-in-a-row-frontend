@@ -1,0 +1,131 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-5">
+      <div class="card shadow-sm p-4">
+        <h2 class="text-center mb-4">Registrierung</h2>
+
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="auth-form">
+          <div class="form-group mb-3">
+            <ng-template #displayNameTooltipContent>
+              <ul class="mb-0 ps-3 text-start">
+                <li>Muss mindestens 3 Zeichen lang sein.</li>
+                <li>Darf maximal 30 Zeichen lang sein.</li>
+                <li>
+                  Darf nur alpha-numerische Buchstaben und Zahlen sowie Punkt, Bindestrich und Unterstrich enthalten.
+                </li>
+                <li>Keines der erlaubten Sonderzeichen darf am Anfang oder Ende stehen.</li>
+              </ul>
+            </ng-template>
+            <label for="username" class="form-label">Benutzername</label>
+            <span
+              class="ms-1"
+              placement="end"
+              [openDelay]="300"
+              [closeDelay]="300"
+              tooltipClass="custom-tooltip"
+              [ngbTooltip]="displayNameTooltipContent"
+              ><fa-icon [icon]="faCircleInfo"></fa-icon
+            ></span>
+            <input
+              id="username"
+              type="text"
+              class="form-control"
+              formControlName="displayName"
+              [class.is-invalid]="signUpForm.get('displayName')?.invalid && signUpForm.get('displayName')?.touched"
+              placeholder="John.Doe"
+              autocomplete="nickname"
+              autofocus
+            />
+            <div class="invalid-feedback">
+              @if (signUpForm.get('displayName')?.errors?.['required']) {
+                <span>Benutzername wird benötigt.</span>
+              }
+              @if (signUpForm.get('displayName')?.errors?.['minlength']) {
+                <span>Mindestens 3 Zeichen erforderlich.</span>
+              } @else if (signUpForm.get('displayName')?.errors?.['displayNameFormat']) {
+                <span>Benutzername entspricht nicht den Richtlinien!</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-group mb-4">
+            <label for="email" class="form-label">E-Mail Adresse</label>
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              formControlName="email"
+              [class.is-invalid]="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched"
+              placeholder="john.doe@gmail.com"
+              autocomplete="email"
+            />
+            <div class="invalid-feedback">Bitte gib eine gültige E-Mail-Adresse an.</div>
+          </div>
+
+          <div class="form-group mb-4">
+            <ng-template #passwordTooltipContent>
+              <ul class="mb-0 ps-3 text-start">
+                <li>Muss mindestens 8 Zeichen lang sein.</li>
+                <li>Muss mindestens einen Groß- und einen Kleinbuchstaben enthalten</li>
+                <li>Muss mindestens eine Zahl enthalten.</li>
+                <!-- <li>Muss mindestens eines dieser Sonderzeichen enthalten: @ $ ! % * ? &</li> -->
+              </ul>
+            </ng-template>
+            <label for="password" class="form-label">Passwort</label>
+            <span
+              class="ms-1"
+              placement="end"
+              [openDelay]="300"
+              [closeDelay]="300"
+              tooltipClass="custom-tooltip"
+              [ngbTooltip]="passwordTooltipContent"
+              ><fa-icon [icon]="faCircleInfo"></fa-icon
+            ></span>
+            <div
+              class="input-group has-validation"
+              [class.is-invalid]="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched"
+            >
+              <input
+                id="password"
+                [type]="showPassword ? 'text' : 'password'"
+                class="form-control"
+                formControlName="password"
+                [class.is-invalid]="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched"
+                placeholder="SicheresPasswort123!"
+                autocomplete="new-password"
+              />
+              <button
+                class="btn btn-outline-secondary toggle-password"
+                type="button"
+                [title]="showPassword ? 'Passwort verstecken' : 'Passwort anzeigen'"
+                (click)="onSwitchVisibility()"
+              >
+                <fa-icon [icon]="showPassword ? faEyeSlash : faEye"></fa-icon>
+              </button>
+            </div>
+            @if (signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched) {
+              <div class="invalid-feedback d-block">
+                @if (signUpForm.get('password')?.errors?.['required']) {
+                  <span>Passwort wird benötigt.</span>
+                }
+                @if (signUpForm.get('password')?.errors?.['minlength']) {
+                  <span>Mindestens 3 Zeichen erforderlich.</span>
+                } @else if (signUpForm.get('password')?.errors?.['passwordFormat']) {
+                  <span>Passwort entspricht nicht den Richtlinien!</span>
+                }
+              </div>
+            }
+          </div>
+
+          <a routerLink="/login" [title]="'Zur Anmeldung'" style="font-style: italic; font-size: small">
+            Ich habe bereits einen Account
+          </a>
+
+          <div class="mt-4 d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary px-4" [disabled]="signUpForm.invalid">Registrieren</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

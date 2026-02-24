@@ -11,3 +11,113 @@
   background-color: #ffe396 !important;
   color: black; // Sicherstellen, dass der Text lesbar bleibt
 }
+
+.custom-tooltip {
+  opacity: 1 !important;
+
+  .tooltip-inner {
+    background-color: whitesmoke;
+    color: black;
+    border: 1px solid grey;
+    border-radius: 4px;
+    padding: 8px 12px;
+    max-width: 500px;
+  }
+
+  &.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: grey;
+  }
+  &.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-color: grey;
+  }
+  &.bs-tooltip-start .tooltip-arrow::before {
+    border-left-color: grey;
+  }
+  &.bs-tooltip-end .tooltip-arrow::before {
+    border-right-color: grey;
+  }
+}
+
+.btn {
+  font-weight: 500;
+  padding: 0.6rem;
+  border-radius: 6px;
+  transition: transform 0.1s active;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.auth-form {
+  .form-label {
+    font-weight: 600;
+    color: #444;
+    font-size: 0.9rem;
+  }
+
+  .input-group {
+    &.is-invalid {
+      .form-control {
+        border-color: #dc3545 !important;
+        z-index: 3;
+      }
+      .toggle-password {
+        border-color: #dc3545 !important;
+        z-index: 2;
+      }
+    }
+
+    // Sorgt für die gerade Kante in der Mitte
+    .form-control {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      z-index: 3;
+    }
+
+    .toggle-password {
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      border: 1px solid #ced4da;
+      color: #666;
+
+      &:hover {
+        background: #f8f9fa;
+      }
+    }
+  }
+
+  .btn-primary {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    font-weight: 600;
+  }
+
+  .is-invalid {
+    z-index: 3;
+  }
+
+  .form-control {
+    border-radius: 6px;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #ced4da;
+    transition:
+      border-color 0.2s ease-in-out,
+      box-shadow 0.2s ease-in-out;
+
+    &:focus {
+      border-color: #80bdff;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    &.is-invalid {
+      border-color: #dc3545;
+    }
+  }
+
+  .invalid-feedback {
+    font-size: 0.75rem;
+    height: 1rem;
+    margin-top: 0.25rem; // Kleiner Abstand nach oben
+  }
+}

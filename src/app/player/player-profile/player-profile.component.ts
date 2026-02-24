@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { DialogService } from '../../common/dialog/dialog.service';
-import { DeletePlayerConfimDialogComponent } from '../delete-player-confim-dialog/delete-player-confim-dialog.component';
 import { PlayerApiService } from '../player-api.service';
 import { PlayerStatisticComponent } from '../player-statistic/player-statistic.component';
 import { Player } from '../player.model';
@@ -46,32 +45,5 @@ export class PlayerProfileComponent implements OnInit {
         });
     }
 
-    onDelete(): void {
-        this.dialogService
-            .open({
-                title: 'Löschen bestätigen',
-                component: DeletePlayerConfimDialogComponent,
-                data: {
-                    playerId: this.player?.id,
-                },
-            })
-            .subscribe(wasConfirmed => {
-                if (wasConfirmed) {
-                    console.log('Löschen bestätigt!');
-
-                    if (!this.player?.id) {
-                        return;
-                    }
-
-                    this.playerApiService.deletePlayer(this.player?.id).subscribe({
-                        next: () => {
-                            this.router.navigate(['..'], { relativeTo: this.route });
-                        },
-                        error: err => {
-                            this.playerService.handlePlayerApiError(err);
-                        },
-                    });
-                }
-            });
-    }
+    onDelete(): void {}
 }

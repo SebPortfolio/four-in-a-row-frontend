@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { RoutingObj } from '../../common/types';
 
 @Component({
     selector: 'app-menu-template',
@@ -10,5 +11,5 @@ import { RouterLink } from '@angular/router';
 })
 export class MenuTemplateComponent {
     @Input() titel: string = '';
-    @Input() menuPoints: { label: string; route: string }[] = [];
+    @Input() menuPoints: RoutingObj[] = [];
 }
