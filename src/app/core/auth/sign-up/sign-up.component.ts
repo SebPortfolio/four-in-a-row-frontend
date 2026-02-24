@@ -56,7 +56,6 @@ export class SignUpComponent {
             };
             this.authApiService.register(registerRequest).subscribe({
                 next: (res: AuthUserResponse) => {
-                    console.log('regsiter response: ', res);
                     this.router.navigate(['players', res.userContext.playerId]);
                 },
                 error: (err: HttpErrorResponse) => {

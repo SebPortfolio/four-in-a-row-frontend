@@ -44,7 +44,6 @@ export class LoginComponent {
             };
             this.authApiService.login(loginRequest).subscribe({
                 next: (res: AuthUserResponse) => {
-                    console.log('login response: ', res);
                     this.router.navigate(['players', res.userContext.playerId]);
                 },
                 error: (err: HttpErrorResponse) => {
