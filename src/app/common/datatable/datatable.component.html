@@ -39,7 +39,7 @@
           @if (col.transform) {
             <span>{{ col.transform(value) | translate }}</span>
           } @else if (col.href) {
-            <a [href]="col.href">{{ value }}</a>
+            <a [routerLink]="col.href(row)">{{ value }}</a>
           } @else {
             {{ value }}
           }

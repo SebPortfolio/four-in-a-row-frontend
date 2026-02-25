@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
     faAngleLeft,
@@ -14,7 +15,7 @@ import { NgxDatatableModule, DatatableComponent as NgxTableComponent } from '@sw
 @Component({
     selector: 'app-datatable',
     standalone: true,
-    imports: [NgxDatatableModule, TranslateModule, FontAwesomeModule],
+    imports: [NgxDatatableModule, TranslateModule, FontAwesomeModule, RouterLink],
     templateUrl: './datatable.component.html',
     styleUrl: './datatable.component.less',
 })
@@ -189,7 +190,7 @@ export type TableColumn = {
     width?: number;
     sortable?: boolean;
     emptyValuesAtBottom?: boolean; // Steuert die Position leerer Werte, bei false stehen leere Werte nicht dauerhaft hinten an
-    href?: string;
+    href?: (row: any) => string; // Dynamische ID aus der Zeile -> href: (row) => `/players/${row.id}`
     cellTemplate?: TemplateRef<any>;
     transform?: (value: any) => string;
     comparator?: (a: any, b: any) => number; // eigener Sortier-Algorithmus

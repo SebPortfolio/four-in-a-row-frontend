@@ -58,7 +58,7 @@ export class PlayerOverviewComponent implements OnInit {
     private getColumns(): TableColumn[] {
         return [
             { name: 'Id', prop: 'id', minWidth: 50, width: 80, maxWidth: 100 },
-            { name: 'Username', prop: 'displayName', width: 300 },
+            { name: 'Username', prop: 'displayName', width: 300, href: row => `/players/${row.id}` },
             { name: 'Games played', prop: 'totalGames', minWidth: 110, width: 160 },
             { name: 'Games won', prop: 'gamesWon', minWidth: 100, width: 160 },
             { name: 'Games lost', prop: 'gamesLost', minWidth: 100, width: 160 },
