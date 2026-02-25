@@ -42,10 +42,18 @@
   font-weight: 500;
   padding: 0.6rem;
   border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
   transition: transform 0.1s active;
+  transition: transform 0.2s background-color 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
 
   &:active {
-    transform: scale(0.98);
+    transform: scale(0.9);
   }
 }
 

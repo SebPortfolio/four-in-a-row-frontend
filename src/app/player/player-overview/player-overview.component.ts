@@ -1,7 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { DatatableComponent, TableColumn, TableConfig } from '../../common/datatable/datatable.component';
 import { DialogService } from '../../common/dialog/dialog.service';
 import { PlayerApiService } from '../player-api.service';
@@ -11,7 +9,7 @@ import { PlayerService } from '../player.service';
 @Component({
     selector: 'app-player-overview',
     standalone: true,
-    imports: [DatatableComponent, FaIconComponent],
+    imports: [DatatableComponent],
     templateUrl: './player-overview.component.html',
     styleUrl: './player-overview.component.less',
 })
@@ -25,14 +23,10 @@ export class PlayerOverviewComponent implements OnInit {
         private playerApiService: PlayerApiService
     ) {}
 
-    faUserPlus = faUserPlus;
-
     ngOnInit(): void {
         this.buildConfig();
         this.loadPlayers();
     }
-
-    onCreatePlayer(): void {}
 
     private loadPlayers(): void {
         this.playerApiService.getAllPlayers().subscribe({
