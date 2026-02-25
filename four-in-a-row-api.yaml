@@ -779,6 +779,7 @@ components:
                 - PLAYER_1_WON
                 - PLAYER_2_WON
                 - DRAW
+                - CANCELLED
             example: PLAYER_1_WON
 
         GameMode:
@@ -1000,6 +1001,35 @@ components:
                 displayName:
                     description: Anzeigename des Spielers
                     $ref: '#/components/schemas/DisplayName'
+                allPermissions:
+                    type: array
+                    description: Flache Liste ALLER effektiven Permission-Strings (Rollen + Custom)
+                    items:
+                        type: string
+                    example: ['game.match.play', 'user.account.view-self']
+
+        Permission:
+            type: object
+            description: Berechtigung
+            properties:
+                name:
+                    type: string
+                    example: 'game.match.play'
+                description:
+                    type: string
+                    example: 'Erlaubt dem Spieler, Züge in einem Spiel auszuführen.'
+
+        Role:
+            type: object
+            description: Rolle als Container für Berechtigungen
+            properties:
+                name:
+                    type: string
+                    example: 'ROLE_USER'
+                permissions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Permission'
 
     #    Steam64:
     #      type: integer

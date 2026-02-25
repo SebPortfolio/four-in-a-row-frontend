@@ -1,5 +1,6 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { AuthUserResponse, UserContext } from './auth.model';
+import { Permission } from './permissions.model';
 
 @Injectable({
     providedIn: 'root',
@@ -23,5 +24,14 @@ export class AuthService {
     public clearAuth(): void {
         this._currentAccessToken.set(null);
         this._currentUser.set(null);
+    }
+
+    public hasAnyPermission(permissions: Permission[]): boolean {
+        if (!this.isAuthenticated()) {
+            return false;
+        }
+
+        const userPerms = this.currentUser()?.allPermissions || [];
+        return permissions.some(perm => userPerms.includes(perm));
     }
 }
