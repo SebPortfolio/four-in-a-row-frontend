@@ -1,5 +1,5 @@
 import { Component, input, InputSignal, OnInit } from '@angular/core';
-import { DatatableComponent, TableConfig } from '../../common/datatable/datatable/datatable.component';
+import { DatatableComponent, TableConfig } from '../../common/datatable/datatable.component';
 import { GameModeUrl } from '../../common/types';
 import { GameApiService } from '../../spiel/game-api.service';
 import { Game } from '../../spiel/game.model';
