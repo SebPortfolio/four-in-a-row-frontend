@@ -3,6 +3,7 @@ import { LoginComponent } from './core/auth/login/login.component';
 import { SignUpComponent } from './core/auth/sign-up/sign-up.component';
 import { authGuard } from './core/guards/auth.guard';
 import { gameModeGuard } from './core/guards/game-mode.guard';
+import { meGuard } from './core/guards/me.guard';
 import { EinstellungenMenuComponent } from './menu/einstellungen-menu/einstellungen-menu.component';
 import { EinzelspielerMenuComponent } from './menu/einzelspieler-menu/einzelspieler-menu.component';
 import { GameCreationComponent } from './menu/game-creation/game-creation.component';
@@ -29,6 +30,11 @@ export const routes: Routes = [
             { path: ':gameMode/games', component: SpielManagementComponent, canActivate: [gameModeGuard] },
             { path: ':gameMode/games/:gameId', component: SpielManagementComponent, canActivate: [gameModeGuard] },
             { path: 'players', component: PlayerOverviewComponent },
+            {
+                path: 'players/me',
+                component: PlayerProfileComponent,
+                canActivate: [meGuard],
+            },
             { path: 'players/:playerId', component: PlayerProfileComponent },
             {
                 path: 'inital-angular-site',
