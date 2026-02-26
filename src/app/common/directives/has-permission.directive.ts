@@ -1,13 +1,13 @@
 import { Directive, effect, input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { AuthService } from '../../core/auth/auth.service';
-import { Permission } from '../../core/auth/permissions.model';
+import { AppPermission } from '../../core/auth/permissions.model';
 
 @Directive({
     selector: '[hasPermission]',
     standalone: true,
 })
 export class HasPermissionDirective {
-    permission = input.required<Permission | Permission[]>({ alias: 'hasPermission' });
+    permission = input.required<AppPermission | AppPermission[]>({ alias: 'hasPermission' });
 
     constructor(
         private templateRef: TemplateRef<unknown>,
@@ -29,7 +29,9 @@ export class HasPermissionDirective {
             return;
         }
 
-        const permissionList: Permission[] = Array.isArray(currentPermission) ? currentPermission : [currentPermission];
+        const permissionList: AppPermission[] = Array.isArray(currentPermission)
+            ? currentPermission
+            : [currentPermission];
 
         if (this.authService.hasAnyPermission(permissionList)) {
             this.viewContainer.createEmbeddedView(this.templateRef);

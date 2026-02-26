@@ -1,5 +1,5 @@
 // Spiegelung der BE-Permissions
-export const PERMISSIONS = {
+export const APP_PERMISSIONS = {
     // User / Auth
     USER_VIEW_SELF: 'user.account.view-self',
     USER_WRITE_SELF: 'user.account.write-self',
@@ -22,4 +22,4 @@ export const PERMISSIONS = {
     GAME_DELETE: 'game.delete',
 } as const;
 
-export type Permission = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];
+export type AppPermission = (typeof APP_PERMISSIONS)[keyof typeof APP_PERMISSIONS];

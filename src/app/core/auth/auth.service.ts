@@ -1,6 +1,6 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { AuthUserResponse, UserContext } from './auth.model';
-import { Permission } from './permissions.model';
+import { AppPermission } from './permissions.model';
 
 @Injectable({
     providedIn: 'root',
@@ -26,7 +26,7 @@ export class AuthService {
         this._currentUser.set(null);
     }
 
-    public hasAnyPermission(permissions: Permission[]): boolean {
+    public hasAnyPermission(permissions: AppPermission[]): boolean {
         if (!this.isAuthenticated()) {
             return false;
         }
