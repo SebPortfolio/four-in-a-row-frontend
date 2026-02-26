@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/dashboard">4 Gewinnt</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        @for (navItem of navItems; track navItem) {
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="[navItem.absolutePath ? '/' : '', navItem.route]">{{
+              navItem.label | translate
+            }}</a>
+          </li>
+        }
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            routerLink="/dashboard"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Dropdown link
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/dashboard">Action</a></li>
+            <li><a class="dropdown-item" routerLink="/dashboard">Another action</a></li>
+            <li><a class="dropdown-item" routerLink="/dashboard">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-link navbar-brand">
+        <app-user-chip mode="full"></app-user-chip>
+      </li>
+    </ul>
+  </div>
+</nav>
