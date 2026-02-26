@@ -1,0 +1,15 @@
+@if (user()) {
+  <a
+    [class]="'container clickable ' + mode"
+    [style.background-color]="mode === 'full' ? 'transparent' : avatarColor()"
+    [routerLink]="'/players/me'"
+  >
+    <div class="circle" [style.background-color]="avatarColor()" [class.clickable]="mode === 'compact'">
+      {{ displayNameFirstChar() }}
+    </div>
+
+    @if (mode === 'full') {
+      <span class="display-name">{{ displayNameFull() }}</span>
+    }
+  </a>
+}
