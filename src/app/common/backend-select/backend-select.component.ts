@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AsyncPipe } from '@angular/common';
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
-import { Observable, Subject, catchError, concat, debounceTime, distinctUntilChanged, of, switchMap, tap } from 'rxjs';
+import { catchError, concat, debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap, tap } from 'rxjs';
 import { HighlightPipe } from '../pipes/highlight.pipe';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
     selector: 'app-backend-select',
     standalone: true,
-    imports: [AsyncPipe, FormsModule, NgSelectModule, HighlightPipe],
+    imports: [AsyncPipe, FormsModule, NgSelectModule, HighlightPipe, SpinnerComponent],
     templateUrl: './backend-select.component.html',
     styleUrl: './backend-select.component.less',
 })
@@ -39,7 +40,7 @@ export class BackendSelectComponent {
     @Output() selected = new EventEmitter<any>();
 
     items$!: Observable<any[]>;
-    loading = false;
+    isLoading = signal<boolean>(false);
     searchInput$ = new Subject<string>();
     searchTermLength: number = 0;
 
@@ -51,17 +52,20 @@ export class BackendSelectComponent {
                 distinctUntilChanged(), // Nur feuern, wenn sich der Text geändert hat
                 tap(term => {
                     this.searchTermLength = term?.length || 0;
-                    this.loading = !!term && term.length >= this.minTermLength;
+                    this.isLoading.set(!!term && term.length >= this.minTermLength);
                 }),
                 switchMap(term => {
                     if (!term || term.length < this.minTermLength) {
-                        this.loading = false;
+                        this.isLoading.set(false);
                         return of([]);
                     }
 
                     return this.searchFn(term).pipe(
                         catchError(() => of([])),
-                        tap(() => (this.loading = false))
+                        tap(results => {
+                            console.debug('Suche abgeschlossen. Ergebnisse:', results);
+                            this.isLoading.set(false);
+                        })
                     );
                 })
             )

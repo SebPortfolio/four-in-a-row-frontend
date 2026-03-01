@@ -1,7 +1,7 @@
 <ng-select
   [labelForId]="labelForId"
-  [items]="items$ | async"
-  [loading]="loading"
+  [items]="(items$ | async) || []"
+  [loading]="isLoading()"
   [typeahead]="searchInput$"
   [bindLabel]="bindLabel"
   [placeholder]="placeholder"
@@ -13,15 +13,21 @@
     <span [innerHTML]="item[bindLabel] | highlight: search"></span>
   </ng-template>
 
+  <ng-template ng-loadingtext-tmp>
+    <div class="p-2 d-flex justify-content-center text-muted">
+      <app-spinner size="sm" message="Suche läuft..." [isLoading]="true"></app-spinner>
+    </div>
+  </ng-template>
+
   @if (searchTermLength < minTermLength) {
     <ng-template ng-header-tmp>
-      <small class="form-text text-muted">Tippe mindestens {{ minTermLength }} Zeichen zum Suchen ...</small>
+      <small class="form-text text-muted">Tippe mindestens {{ minTermLength }} Zeichen zum Suchen</small>
     </ng-template>
   }
 
-  @if (searchTermLength >= minTermLength) {
+  @if (searchTermLength >= minTermLength && !isLoading()) {
     <ng-template ng-notfound-tmp let-searchTerm="searchTerm">
-      <div class="ng-value p-2">Keine Ergebnisse für "{{ searchTerm }}"</div>
+      <div class="ng-value p-2 text-muted">Keine Ergebnisse für "{{ searchTerm }}"</div>
     </ng-template>
   }
 </ng-select>
