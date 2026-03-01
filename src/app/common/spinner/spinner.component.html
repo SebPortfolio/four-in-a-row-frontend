@@ -1,0 +1,17 @@
+@if (isLoading()) {
+  <div
+    class="d-flex justify-content-center align-items-center"
+    [ngClass]="{
+      'gap-1': ['sm', 'xs'].includes(size()),
+      'gap-2': size() === 'md',
+      'gap-3': size() === 'lg',
+    }"
+  >
+    <div [class]="'spinner-border spinner-border-' + size()"></div>
+    @if (message(); as msg) {
+      <span role="status" [class]="'spinner-msg spinner-msg-' + size()">{{ msg | translate }} ...</span>
+    }
+  </div>
+} @else {
+  <ng-content></ng-content>
+}
