@@ -1,0 +1,18 @@
+<div class="panel">
+  <div class="panel-header" [ngClass]="{ 'non-clickable': !isCollapsible }" (click)="onClick()">
+    <span class="panel-title truncate">{{ panelTitle | translate }}</span>
+    @if (isCollapsible) {
+      <fa-icon [icon]="isCollapsed ? faCaretUp : faCaretDown" class="panel-icon"></fa-icon>
+    }
+  </div>
+  <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+    <div class="panel-content">
+      <ng-content></ng-content>
+    </div>
+    @if (footerExists) {
+      <div class="panel-footer">
+        <ng-content select="[panel-footer]"></ng-content>
+      </div>
+    }
+  </div>
+</div>

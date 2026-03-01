@@ -1,0 +1,45 @@
+.panel {
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 8px 8px 4px 8px;
+  width: 100%;
+
+  .panel-header {
+    border-bottom: 1px solid black;
+    padding-bottom: 8px;
+    font-size: 1.25rem;
+    cursor: pointer;
+
+    color: cornflowerblue;
+
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
+    .panel-title {
+      margin-right: 8px;
+      font-weight: bold;
+    }
+
+    .panel-icon {
+      flex-shrink: 0;
+    }
+  }
+
+  .panel-content {
+    padding: 8px 0 4px 0;
+  }
+
+  .panel-footer {
+    margin-top: 4px;
+    padding-top: 4px;
+    border-top: 1px solid black;
+    color: grey;
+    font-size: 0.75rem;
+  }
+}
+
+.non-clickable {
+  cursor: default;
+  pointer-events: none;
+}
