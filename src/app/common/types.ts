@@ -17,3 +17,5 @@ export interface AppLanguage {
     nativeName: string; // Name Originalsprache
     flagPath: string;
 }
+
+export type DateFormatType = 'date' | 'dateTime' | 'dateTimeFull' | 'time' | 'timeFull';
