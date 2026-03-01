@@ -1,5 +1,11 @@
 {
   "ALLGEMEIN": {
-    "OK": "Ok"
+    "OK": "Ok",
+    "JA": "Yes",
+    "NEIN": "No",
+    "TABELLE": {
+      "ZEILEN_LIMIT": "{{ start }} to {{ end }} of {{ total }} elements",
+      "SEITE": "Page {{ current }} / {{ total }}"
+    }
   }
 }

@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { RoutingObj } from '../../common/types';
 
 @Component({
     selector: 'app-menu-template',
     standalone: true,
-    imports: [RouterLink],
+    imports: [RouterLink, TranslateModule],
     templateUrl: './menu-template.component.html',
     styleUrl: './menu-template.component.less',
 })

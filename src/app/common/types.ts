@@ -10,3 +10,10 @@ export type RoutingObj = {
     route: string;
     absolutePath?: boolean; // Optional, standardmäßig false, wenn true, wird die Route als absolute URL behandelt
 };
+
+export interface AppLanguage {
+    code: string;
+    label: string; // Übersetzungsstring
+    nativeName: string; // Name Originalsprache
+    flagPath: string;
+}

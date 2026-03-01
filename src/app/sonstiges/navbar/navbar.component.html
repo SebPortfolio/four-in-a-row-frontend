@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/dashboard">4 Gewinnt</a>
+    <a class="navbar-brand" routerLink="/dashboard">{{ 'NAVBAR.APP_NAME' | translate }}</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -14,11 +14,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-        @for (navItem of navItems; track navItem) {
+        @for (navItem of navItems; track navItem.route) {
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="[navItem.absolutePath ? '/' : '', navItem.route]">{{
-              navItem.label | translate
-            }}</a>
+            <a class="nav-link" [routerLink]="[navItem.absolutePath ? '/' : '', navItem.route]">
+              {{ navItem.label | translate }}
+            </a>
           </li>
         }
         <li class="nav-item dropdown">
@@ -41,6 +41,31 @@
     </div>
 
     <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img
+            [src]="currentLangObj().flagPath"
+            [alt]="currentLangObj().nativeName"
+            width="20"
+            class="me-2 rounded-sm shadow-sm"
+          />
+        </a>
+        <ul class="dropdown-menu">
+          @for (language of otherLanguages(); track language.code) {
+            <li>
+              <button class="dropdown-item" (click)="onSwitchLang(language.code)" [title]="language.nativeName">
+                <img
+                  [src]="language.flagPath"
+                  [alt]="language.nativeName"
+                  width="20"
+                  class="me-2 rounded-sm shadow-sm"
+                />
+                {{ language.label | translate }}
+              </button>
+            </li>
+          }
+        </ul>
+      </li>
       <li class="nav-link navbar-brand">
         <app-user-chip mode="full"></app-user-chip>
       </li>

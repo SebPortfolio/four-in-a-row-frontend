@@ -6,10 +6,11 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { BASE_PATH } from '../../openapi';
 import { routes } from './app.routes';
 import { AuthApiService } from './core/auth/auth-api.service';
-import { initializeApp } from './core/initalizers/app.initializer';
+import { initializeApp, initializeLanguage } from './core/initalizers/app.initializer';
 import { HttpLoaderFactory } from './core/initalizers/translate-http-loader';
 import { apiErrorInterceptor } from './core/interceptors/api-error.interceptor';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { LanguageService } from './core/language.service';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -24,6 +25,7 @@ export const appConfig: ApplicationConfig = {
         ),
         { provide: BASE_PATH, useValue: 'http://localhost:8000' },
         { provide: APP_INITIALIZER, useFactory: initializeApp, deps: [AuthApiService], multi: true },
+        { provide: APP_INITIALIZER, useFactory: initializeLanguage, deps: [LanguageService], multi: true },
         importProvidersFrom(
             TranslateModule.forRoot({
                 loader: {

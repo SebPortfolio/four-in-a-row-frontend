@@ -24,8 +24,17 @@ export class TranslateHttpLoader implements TranslateLoader {
 }
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+    const rootPath = './assets/texte/';
+    const suffix = '.json';
     const resources: ITranslateResource[] = [
-        { prefix: './assets/texte/allgemein-', suffix: '.json' },
+        { prefix: rootPath + 'allgemein-', suffix },
+        { prefix: rootPath + 'user/user-', suffix },
+        { prefix: rootPath + 'user/user-stammdaten-panel-', suffix },
+        { prefix: rootPath + 'sprachen-', suffix },
+        { prefix: rootPath + 'navbar-', suffix },
+        { prefix: rootPath + 'admin/admin-user-overview-', suffix },
+        { prefix: rootPath + 'menu/hauptmenu-', suffix },
+        { prefix: rootPath + 'menu/general-menu-', suffix },
         // TODO: weitere Übersetzungsdateien hier hinzufügen
     ];
 

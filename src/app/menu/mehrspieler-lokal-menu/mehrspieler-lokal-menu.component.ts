@@ -12,8 +12,8 @@ import { MenuTemplateComponent } from '../menu-template/menu-template.component'
 export class MehrspielerLokalMenuComponent {
     titel: string = 'Hauptmenü';
     menuPoints: RoutingObj[] = [
-        { label: 'Neues Spiel', route: 'new' },
-        { label: 'Spiel laden', route: 'load' },
-        { label: 'Zurück zum Hauptmenü', route: '..' },
+        { label: 'MENU.NEUES_SPIEL', route: 'new' },
+        { label: 'MENU.SPIEL_LADEN', route: 'load' },
+        { label: 'MENU.ZURUECK_ZUM_HAUPTMENU', route: '..' },
     ];
 }

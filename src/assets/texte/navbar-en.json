@@ -1,0 +1,9 @@
+{
+  "NAVBAR": {
+    "APP_NAME": "Connect 4",
+    "ADMINISTRATION": "Administration",
+    "BENUTZER_VERWALTEN": "Manage users",
+    "SPIELER_VERWALTEN": "Manage players",
+    "SPIELE_VERWALTEN": "Manage games"
+  }
+}

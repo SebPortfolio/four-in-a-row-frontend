@@ -1,0 +1,11 @@
+{
+  "HAUPTMENU": {
+    "EINZELSPIELER": "Einzelspieler",
+    "MEHRSPIELER_LOKAL": "Mehrspieler (lokal)",
+    "MEHRSPIELER_ONLINE": "Mehrspieler (online)",
+    "EINSTELLUNGEN": "Einstellungen",
+    "SPIELER": "Spieler",
+    "HILFE": "Hilfe",
+    "UEBER_UNS": "Über uns"
+  }
+}

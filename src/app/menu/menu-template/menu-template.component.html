@@ -6,7 +6,7 @@
       [routerLink]="point.absolutePath ? ['/', point.route] : [point.route]"
       routerLinkActive="active-class"
     >
-      {{ point.label }}
+      {{ point.label | translate }}
     </a>
   }
 </div>
