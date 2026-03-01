@@ -1,0 +1,54 @@
+<div class="col-md-12">
+  <div class="row">
+    <div class="col-md-6">
+      <app-user-stammdaten-panel [user]="user()" [isLoading]="isLoading()"></app-user-stammdaten-panel>
+    </div>
+
+    <div class="col-md-6">
+      <app-spinner size="lg" [message]="'Lade Benutzerdaten'" [isLoading]="isLoading()">
+        @if (user(); as userDetails) {
+          <div class="row">
+            <div class="col-md-2">Gebannt am:</div>
+            <div class="col-md-2">?</div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">Gebannt bis:</div>
+            <div class="col-md-2">{{ userDetails.bannedUntil ? userDetails.bannedUntil : '-' }}</div>
+          </div>
+          <div class="row">
+            <div class="d-flex gap-3">
+              <button type="button" class="btn btn-primary" (click)="onEdit()">
+                <fa-icon [icon]="faEdit"></fa-icon>
+                Bearbeiten
+              </button>
+              @if (!isBannedTemporarly() && !isBannedPermanently()) {
+                <button type="button" class="btn btn-warning" (click)="onBan()">
+                  <fa-icon [icon]="faHandFist"></fa-icon>
+                  Bannen
+                </button>
+              }
+              @if (!isBannedPermanently()) {
+                <button type="button" class="btn btn-danger" (click)="onBanPermanent()">
+                  <fa-icon [icon]="faInfinity"></fa-icon>
+                  Permanent bannen
+                </button>
+              }
+              @if (isBannedTemporarly() || isBannedPermanently()) {
+                <button type="button" class="btn btn-success" (click)="onUnban()">
+                  <fa-icon [icon]="faUnlock"></fa-icon>
+                  Entbannen
+                </button>
+              }
+            </div>
+          </div>
+        } @else {
+          <p>Keine Benutzerdaten gefunden!</p>
+        }
+      </app-spinner>
+
+      @if (!isLoading()) {
+        <app-spinner size="xs" [isLoading]="true"></app-spinner>
+      }
+    </div>
+  </div>
+</div>

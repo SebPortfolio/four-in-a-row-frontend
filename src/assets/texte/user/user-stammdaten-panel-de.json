@@ -1,0 +1,13 @@
+{
+  "USER_STAMMDATEN": {
+    "TITEL": "Stammdaten",
+    "BENUTZERNAME": "Benutzername",
+    "EMAIL": "E-Mail",
+    "LETZTE_PW_AENDERUNG": "Letzte Passwortänderung",
+    "STATUS": "Status",
+    "ZULETZT_BEARBEITET_AM": "Zuletzt bearbeitet am {{date}}",
+    "NIE": "nie",
+    "LADEN": "Lade Benutzerdaten",
+    "KEINE_DATEN": "Keine Benutzerdaten gefunden"
+  }
+}

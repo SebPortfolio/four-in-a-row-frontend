@@ -1,0 +1,38 @@
+<app-panel panelTitle="USER_STAMMDATEN.TITEL">
+  <app-spinner size="md" message="USER_STAMMDATEN.LADEN" [isLoading]="isLoading()">
+    @if (user(); as userDetails) {
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-4">{{ 'USER_STAMMDATEN.BENUTZERNAME' | translate }}:</div>
+          <div class="col-md-8">{{ userDetails.displayName }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">{{ 'USER_STAMMDATEN.EMAIL' | translate }}:</div>
+          <div class="col-md-8">{{ userDetails.email | maskEmail }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">{{ 'USER_STAMMDATEN.LETZTE_PW_AENDERUNG' | translate }}:</div>
+          <div class="col-md-8 d-flex align-items-center">
+            @if (userDetails.lastPasswordChangeAt) {
+              {{ userDetails.lastPasswordChangeAt | appDate: 'date' }}
+            } @else {
+              <span class="null-val">{{ 'USER_STAMMDATEN.NIE' | translate }}</span>
+            }
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">{{ 'USER_STAMMDATEN.STATUS' | translate }}:</div>
+          <div class="col-md-8">{{ 'USER.STATUS.' + userDetails.status | translate }}</div>
+        </div>
+      </div>
+    } @else {
+      <p>{{ 'USER_STAMMDATEN.KEINE_DATEN' }}</p>
+    }
+  </app-spinner>
+
+  @if (user()) {
+    <span panel-footer #footerContent class="italic">{{
+      'USER_STAMMDATEN.ZULETZT_BEARBEITET_AM' | translate: { date: '2026-02-28T14:35:56Z' | appDate: 'dateTime' }
+    }}</span>
+  }
+</app-panel>

@@ -1,0 +1,13 @@
+{
+  "USER_STAMMDATEN": {
+    "TITEL": "Master data",
+    "BENUTZERNAME": "Username",
+    "EMAIL": "E-Mail",
+    "LETZTE_PW_AENDERUNG": "Last password change",
+    "STATUS": "Status",
+    "ZULETZT_BEARBEITET_AM": "Last edit on {{date}}",
+    "NIE": "never",
+    "LADEN": "Load user data",
+    "KEINE_DATEN": "No user data found"
+  }
+}

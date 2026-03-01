@@ -1,0 +1,7 @@
+@if (config) {
+  <div class="col-md-12">
+    <app-spinner [isLoading]="isLoading()">
+      <app-datatable [config]="config" [data]="users"></app-datatable>
+    </app-spinner>
+  </div>
+}

@@ -1,0 +1,10 @@
+{
+  "USER": {
+    "STATUS": {
+      "ACTIVE": "Active",
+      "UNVERIFIED": "Unverified",
+      "BANNED": "Banned",
+      "PERMANENT_BANNED": "Permanently banned"
+    }
+  }
+}

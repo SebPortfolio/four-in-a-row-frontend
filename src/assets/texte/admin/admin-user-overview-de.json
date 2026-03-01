@@ -1,0 +1,9 @@
+{
+  "ADMIN_USER_OVERVIEW": {
+    "ANZEIGENAME": "Anzeigename",
+    "EMAIL": "E-Mail",
+    "STATUS": "Status",
+    "ROLLEN": "Rollen",
+    "HAT_SONDERBERECHTIGUNGEN": "Hat Sonderberechtigungen?"
+  }
+}

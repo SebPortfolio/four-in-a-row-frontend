@@ -43,6 +43,26 @@ export const routes: Routes = [
                         m => m.InitalAngularSiteComponent
                     ),
             },
+            {
+                path: 'administration',
+                children: [
+                    {
+                        path: 'users',
+                        loadComponent: () =>
+                            import('./admin/admin-user-overview/admin-user-overview.component').then(
+                                m => m.AdminUserOverviewComponent
+                            ),
+                    },
+                    {
+                        path: 'users/:userId',
+                        loadComponent: () =>
+                            import('./admin/admin-user-management/admin-user-management.component').then(
+                                m => m.AdminUserManagementComponent
+                            ),
+                    },
+                ],
+            },
+
             // TODO: später mit 404 Seite ersetzen
             { path: '**', redirectTo: 'dashboard' },
         ],
