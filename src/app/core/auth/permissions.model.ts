@@ -1,9 +1,10 @@
 // Spiegelung der BE-Permissions
 export const APP_PERMISSIONS = {
     // User / Auth
-    USER_VIEW_SELF: 'user.account.view-self',
-    USER_WRITE_SELF: 'user.account.write-self',
-    USER_ADMIN: 'user.account.admin',
+    USER_VIEW_SELF: 'user.self.view',
+    USER_WRITE_SELF: 'user.self.write',
+    USERS_VIEW: 'user.all.view',
+    USER_ADMIN: 'user.all.admin',
 
     // Sessions
     SESSION_VIEW: 'user.session.view',

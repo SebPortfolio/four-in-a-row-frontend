@@ -13,7 +13,7 @@ export class DeletePlayerConfimDialogComponent {
 
     constructor(private dialogService: DialogService) {}
 
-    onConfirm() {
+    onConfirm(): void {
         if (!this.playerId) {
             console.warn('Löschen nicht möglich: Keine playerId vorhanden.');
             return this.closeWithoutDelete();

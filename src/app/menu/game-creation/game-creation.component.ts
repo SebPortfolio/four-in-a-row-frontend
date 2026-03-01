@@ -1,6 +1,6 @@
 import { Component, input, InputSignal, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { BackendSelectComponent } from '../../common/backend-select/backend-select.component';
 import { GameModeUrl } from '../../common/types';
 import { PlayerApiService } from '../../player/player-api.service';
@@ -36,18 +36,11 @@ export class GameCreationComponent implements OnInit {
         console.log('GameMode: ', this.gameMode());
     }
 
-    readonly searchProvider = (searchTerm: string): Observable<Player[]> => this.searchPlayerByUsername(searchTerm);
+    readonly searchProvider = (searchTerm: string): Observable<Player[]> => {
+        return this.playerApiService.getFilteredPlayers(searchTerm);
+    };
 
-    protected searchPlayerByUsername(searchTerm: string): Observable<Player[]> {
-        return this.playerApiService.getAllPlayers().pipe(
-            map(players => {
-                console.log(players);
-                return players.filter(player => player.displayName.toLowerCase().includes(searchTerm.toLowerCase()));
-            })
-        );
-    }
-
-    protected onPlayerSelected(selectedPlayer: Player, playerSlot: 1 | 2): void {
+    protected onPlayerSelected(selectedPlayer: Player, playerSlot: PlayerSlot): void {
         if (!selectedPlayer) {
             return this.clearInternPlayer(playerSlot);
         }
@@ -65,14 +58,14 @@ export class GameCreationComponent implements OnInit {
         }
     }
 
-    private clearSelected(playerSlot: 1 | 2): void {
+    private clearSelected(playerSlot: PlayerSlot): void {
         console.warn('Doppelbelegung verhindert!');
 
         this.clearSelectUi(playerSlot);
         this.clearInternPlayer(playerSlot);
     }
 
-    private clearInternPlayer(playerSlot: 1 | 2): void {
+    private clearInternPlayer(playerSlot: PlayerSlot): void {
         if (playerSlot === 1) {
             this.player1 = undefined;
         } else {
@@ -80,7 +73,7 @@ export class GameCreationComponent implements OnInit {
         }
     }
 
-    private clearSelectUi(playerSlot: 1 | 2): void {
+    private clearSelectUi(playerSlot: PlayerSlot): void {
         const componentToClear = this.selectComponents.toArray()[playerSlot - 1];
         componentToClear.clear();
     }
@@ -107,3 +100,5 @@ export class GameCreationComponent implements OnInit {
         }
     }
 }
+
+type PlayerSlot = 1 | 2;
