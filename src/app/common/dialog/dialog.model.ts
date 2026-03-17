@@ -8,6 +8,10 @@ export interface DialogConfig {
      */
     component: Type<unknown>;
     /**
+     * Größe des anzuzeigenden Dialogfensters.
+     */
+    size?: 'sm' | 'md' | 'lg';
+    /**
      * Optionale Daten für die Komponente.
      * Objekt mit Strings als Schlüsseln und unbekannten Werten.
      */

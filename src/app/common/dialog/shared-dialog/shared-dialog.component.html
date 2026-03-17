@@ -1,19 +1,19 @@
-<div class="dialog-overlay" (click)="onClose()">
-  <div class="dialog-container" (click)="$event.stopPropagation()">
+<section class="dialog-overlay" (click)="onClose()">
+  <div class="dialog-container" [ngClass]="'size-' + size" (click)="$event.stopPropagation()">
     <header class="dialog-header">
-      <h3>{{ title }}</h3>
-      <button class="close-btn" (click)="onClose()" aria-label="Schließen">&times;</button>
+      <span class="dialog-title">{{ title | translate }}</span>
+      <button
+        class="close-btn"
+        (click)="onClose()"
+        [attr.title]="'ALLGEMEIN.SCHLIESSEN' | translate"
+        [attr.aria-label]="'ALLGEMEIN.SCHLIESSEN' | translate"
+      >
+        <fa-icon [icon]="faClose"></fa-icon>
+      </button>
     </header>
 
     <section class="dialog-content">
       <ng-content></ng-content>
     </section>
-
-    @if (showFooter) {
-      <footer class="dialog-footer">
-        <button class="btn-secondary" (click)="onClose()">Abbrechen</button>
-        <ng-content select="[footer-actions]"></ng-content>
-      </footer>
-    }
   </div>
-</div>
+</section>

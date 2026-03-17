@@ -4,7 +4,7 @@
 <router-outlet></router-outlet>
 
 @if (currentDialog()) {
-  <app-shared-dialog [title]="currentDialog()!.title">
+  <app-shared-dialog [title]="currentDialog()!.title" [size]="currentDialog()!.size || 'md'">
     <ng-container *ngComponentOutlet="currentDialog()!.component; inputs: currentDialog()!.data"></ng-container>
   </app-shared-dialog>
 }

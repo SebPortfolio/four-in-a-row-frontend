@@ -3,6 +3,7 @@
     "OK": "Ok",
     "JA": "Yes",
     "NEIN": "No",
+    "SCHLIESSEN": "Close",
     "TABELLE": {
       "ZEILEN_LIMIT": "{{ start }} to {{ end }} of {{ total }} elements",
       "SEITE": "Page {{ current }} / {{ total }}"
