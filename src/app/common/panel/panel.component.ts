@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ContentChild, effect, ElementRef, EventEmitter, input, model, Output } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
@@ -12,32 +12,40 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './panel.component.html',
     styleUrl: './panel.component.less',
 })
-export class PanelComponent implements OnInit {
-    @Input({ required: true }) panelTitle: string = '';
+export class PanelComponent {
+    panelTitle = input.required<string>();
     /** Kann das Panel eingeklappt werden? */
-    @Input() isCollapsible: boolean = true;
+    isCollapsible = input<boolean>(true);
     /** Ist das Panel bei Initialisierung eingeklappt? */
-    @Input() isCollapsed: boolean = false;
+    isCollapsed = model<boolean>(false);
+
+    constructor() {
+        effect(
+            () => {
+                if (!this.isCollapsible() && this.isCollapsed()) {
+                    console.warn(
+                        'Illegale Konfiguration: isCollapsed wurde auf false gesetzt, da das Panel nicht einklappbar ist.'
+                    );
+
+                    this.isCollapsed.set(false);
+                }
+            },
+            { allowSignalWrites: true }
+        );
+    }
+
     @ContentChild('footerContent') footerExists?: ElementRef;
 
     @Output()
     openEvent = new EventEmitter<boolean>();
 
-    ngOnInit(): void {
-        if (!this.isCollapsible && this.isCollapsed) {
-            console.warn(
-                `Panel kann nicht isCollapsible false und gleichzeitig isCollapsed true haben\n. isCollapsible wird auf true gesetzt`
-            );
-            this.isCollapsible = true;
+    onClick(): void {
+        if (this.isCollapsible()) {
+            this.isCollapsed.update(v => !v);
         }
     }
 
-    onClick(): void {
-        this.isCollapsed = this.isCollapsible ? !this.isCollapsed : false;
-        this.openEvent.emit(this.isCollapsed);
-    }
-
-    // FaIcons
-    faCaretDown = faCaretDown;
-    faCaretUp = faCaretUp;
+    // fa-icons
+    protected readonly faCaretDown = faCaretDown;
+    protected readonly faCaretUp = faCaretUp;
 }
