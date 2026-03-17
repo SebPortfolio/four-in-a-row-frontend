@@ -24,6 +24,27 @@
           <div class="col-md-4">{{ 'USER_STAMMDATEN.STATUS' | translate }}:</div>
           <div class="col-md-8">{{ 'USER.STATUS.' + userDetails.status | translate }}</div>
         </div>
+        <div class="row">
+          <div class="col-md-4">{{ 'USER_STAMMDATEN.ROLLEN' | translate }}:</div>
+          <div class="col-md-8">
+            @for (role of userDetails.roles; track role) {
+              <span>{{ 'ROLLEN.' + role | translate }}</span>
+              @if (role !== userDetails.roles[userDetails.roles.length - 1]) {
+                <span>, </span>
+              }
+            }
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">{{ 'USER_STAMMDATEN.SONDERBERECHTIGUNGEN' | translate }}:</div>
+          <div class="col-md-8">
+            @if (userDetails.customPermissions.length) {
+              <span> {{ userDetails.customPermissions.join(', ') }}</span>
+            } @else {
+              <span class="null-val">{{ 'USER_STAMMDATEN.KEINE' | translate }}</span>
+            }
+          </div>
+        </div>
       </div>
     } @else {
       <p>{{ 'USER_STAMMDATEN.KEINE_DATEN' }}</p>

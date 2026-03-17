@@ -1,0 +1,7 @@
+{
+  "ROLLEN": {
+    "ROLE_ADMIN": "Administrator",
+    "ROLE_USER": "Benutzer",
+    "ROLE_LUCIFER": "Lucifer"
+  }
+}

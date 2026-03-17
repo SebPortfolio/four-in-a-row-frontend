@@ -1,11 +1,10 @@
 import { Component, input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { UserAdmin } from '../../admin/admin.model';
+import { UserAdminResponse } from '../../admin/admin.model';
 import { PanelComponent } from '../../common/panel/panel.component';
 import { AppDatePipe } from '../../common/pipes/app-date.pipe';
 import { MaskEmailPipe } from '../../common/pipes/mask-email.pipe';
 import { SpinnerComponent } from '../../common/spinner/spinner.component';
-import { User } from '../user.model';
 
 @Component({
     selector: 'app-user-stammdaten-panel',
@@ -16,5 +15,5 @@ import { User } from '../user.model';
 })
 export class UserStammdatenPanelComponent {
     isLoading = input.required<boolean>();
-    user = input.required<User | UserAdmin | undefined>();
+    user = input.required<UserAdminResponse | undefined>();
 }

@@ -5,8 +5,11 @@
     "EMAIL": "E-Mail",
     "LETZTE_PW_AENDERUNG": "Last password change",
     "STATUS": "Status",
+    "ROLLEN": "Roles",
+    "SONDERBERECHTIGUNGEN": "Custom permissions",
     "ZULETZT_BEARBEITET_AM": "Last edit on {{date}}",
     "NIE": "never",
+    "KEINE": "none",
     "LADEN": "Load user data",
     "KEINE_DATEN": "No user data found"
   }
