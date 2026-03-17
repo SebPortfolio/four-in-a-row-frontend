@@ -14,13 +14,28 @@ import { UserAdminApiService } from '../user-admin-api.service';
 @Component({
     selector: 'app-admin-user-management',
     standalone: true,
-    imports: [TranslateModule, SpinnerComponent, FaIconComponent, UserStammdatenPanelComponent],
+    imports: [
+        TranslateModule,
+        SpinnerComponent,
+        FaIconComponent,
+        UserStammdatenPanelComponent,
+        AdminUserEditComponent,
+    ],
     templateUrl: './admin-user-management.component.html',
     styleUrl: './admin-user-management.component.less',
 })
 export class AdminUserManagementComponent implements OnInit {
     isLoading = signal(false);
-    user = signal<UserAdmin | undefined>(undefined);
+    user = signal<UserAdminResponse | undefined>(undefined);
+    isBannedTemporarly = computed((): boolean => {
+        const ban = this.user()?.activeBan;
+        return !!ban && !!ban.endAt;
+    });
+    isBannedPermanently = computed((): boolean => {
+        const ban = this.user()?.activeBan;
+        return !!ban && ban.endAt == null;
+    });
+    isEditing = signal(false);
 
     constructor(
         private route: ActivatedRoute,
@@ -47,8 +62,7 @@ export class AdminUserManagementComponent implements OnInit {
             .getUserById(id)
             .pipe(finalize(() => this.isLoading.set(false)))
             .subscribe({
-                next: (res: UserAdmin) => {
-                    res.lastPasswordChangeAt = '2026-01-28';
+                next: (res: UserAdminResponse) => {
                     this.user.set(res);
                 },
                 error: err => {
@@ -57,16 +71,9 @@ export class AdminUserManagementComponent implements OnInit {
             });
     }
 
-    isBannedTemporarly(): boolean {
-        return this.user()?.status === UserStatus.Banned;
-    }
-
-    isBannedPermanently(): boolean {
-        return this.user()?.status === UserStatus.PermanentBanned;
-    }
-
     onEdit(): void {
         console.debug('Edit: ', this.user());
+        this.isEditing.set(true);
     }
 
     onBan(): void {
@@ -81,9 +88,13 @@ export class AdminUserManagementComponent implements OnInit {
         console.debug('Unban: ', this.user());
     }
 
-    // Fa-Icons
-    faEdit = faEdit;
-    faHandFist = faHandFist;
-    faInfinity = faInfinity;
-    faUnlock = faUnlock;
+    protected onUserChange(user: UserAdminResponse): void {
+        this.user.set(user);
+    }
+
+    // fa-Icons
+    protected readonly faEdit = faEdit;
+    protected readonly faHandFist = faHandFist;
+    protected readonly faInfinity = faInfinity;
+    protected readonly faUnlock = faUnlock;
 }

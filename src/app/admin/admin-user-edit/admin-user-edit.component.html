@@ -1,0 +1,106 @@
+@if (userForm && show()) {
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="col-md-12 mt-2">
+      <div class="row mb-2">
+        <label for="username" class="col-md-4 col-form-label align-items-center">
+          {{ 'ADMIN_USER_EDIT_DIALOG.BENUTZERNAME' | translate }}:*
+          <span
+            class="ms-1"
+            placement="end"
+            [openDelay]="500"
+            tooltipClass="custom-tooltip"
+            [ngbTooltip]="displayNameTooltipContent"
+          >
+            <fa-icon [icon]="faCircleInfo"></fa-icon>
+          </span>
+        </label>
+        <div class="col-md-8">
+          <input
+            id="username"
+            type="text"
+            class="form-control"
+            [class]="{ 'is-invalid': shouldMarkInvalid('displayName') }"
+            formControlName="displayName"
+            placeholder="John.Doe"
+            autofocus
+          />
+          <div class="invalid-feedback">
+            @if (userForm.get('displayName')?.errors?.['required']) {
+              <span>Benutzername wird benötigt.</span>
+            }
+            @if (userForm.get('displayName')?.errors?.['minlength']) {
+              <span>Mindestens 3 Zeichen erforderlich.</span>
+            } @else if (userForm.get('displayName')?.errors?.['displayNameFormat']) {
+              <span>Benutzername entspricht nicht den Richtlinien!</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <label for="email" class="col-md-4 form-label"> {{ 'ADMIN_USER_EDIT_DIALOG.EMAIL' | translate }}:*</label>
+        <div class="col-md-8">
+          <input
+            id="email"
+            type="email"
+            class="form-control"
+            [class]="{ 'is-invalid': shouldMarkInvalid('email') }"
+            formControlName="email"
+            placeholder="john.doe@gmail.com"
+          />
+          <div class="invalid-feedback">
+            @if (userForm.get('email')?.errors?.['required']) {
+              <span>E-Mail Adresse wird benötigt.</span>
+            } @else if (userForm.get('email')?.errors?.['email']) {
+              <span>Bitte gib eine gültige E-Mail-Adresse an.</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <label for="roles" class="col-md-4 form-label"> {{ 'ADMIN_USER_EDIT_DIALOG.ROLLEN' | translate }}:</label>
+        <div class="col-md-8">
+          <ng-select labelForId="roles" formControlName="roles" [items]="roles()" [multiple]="true"></ng-select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="permissions" class="col-md-4 form-label">
+          {{ 'ADMIN_USER_EDIT_DIALOG.SONDERBERECHTIGUNGEN' | translate }}:</label
+        >
+        <div class="col-md-8">
+          <ng-select
+            labelForId="permissions"
+            formControlName="customPermissions"
+            [items]="permissions()"
+            [multiple]="true"
+          ></ng-select>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-secondary" (click)="onCancel()">
+            {{ 'ALLGEMEIN.ABBRECHEN' | translate }}
+          </button>
+          <button type="submit" class="btn btn-primary px-4" [disabled]="isSaveButtonDisabled()">
+            @if (isLoading()) {
+              <app-spinner [isLoading]="true" size="xs" [message]="null"></app-spinner>
+            }
+            {{ 'ALLGEMEIN.SPEICHERN' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+}
+
+<ng-template #displayNameTooltipContent>
+  <ul class="mb-0 ps-3 text-start">
+    <li>Muss mindestens 3 Zeichen lang sein.</li>
+    <li>Darf maximal 30 Zeichen lang sein.</li>
+    <li>Darf nur alpha-numerische Buchstaben und Zahlen sowie Punkt, Bindestrich und Unterstrich enthalten.</li>
+    <li>Keines der erlaubten Sonderzeichen darf am Anfang oder Ende stehen.</li>
+  </ul>
+</ng-template>

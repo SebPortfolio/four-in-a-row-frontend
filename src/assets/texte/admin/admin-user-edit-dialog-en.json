@@ -1,0 +1,8 @@
+{
+  "ADMIN_USER_EDIT_DIALOG": {
+    "BENUTZERNAME": "Username",
+    "ROLLEN": "Roles",
+    "EMAIL": "E-mail",
+    "SONDERBERECHTIGUNGEN": "Custom permissions"
+  }
+}

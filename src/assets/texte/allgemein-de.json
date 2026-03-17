@@ -1,6 +1,8 @@
 {
   "ALLGEMEIN": {
     "OK": "Ok",
+    "ABBRECHEN": "Abbrechen",
+    "SPEICHERN": "Speichern",
     "JA": "Ja",
     "NEIN": "Nein",
     "SCHLIESSEN": "Schließen",
