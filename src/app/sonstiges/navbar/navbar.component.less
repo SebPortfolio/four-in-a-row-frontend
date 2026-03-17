@@ -6,3 +6,22 @@
 .dropdown-menu {
   display: none;
 }
+
+.logout-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0.5em;
+
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    transition: transform 0.1s ease;
+  }
+
+  &:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+}

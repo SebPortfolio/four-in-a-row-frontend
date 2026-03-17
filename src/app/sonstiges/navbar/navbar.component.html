@@ -38,7 +38,7 @@
           </ul>
         </li>
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *hasPermission="p.USER_ALL_ADMIN">
           <a
             class="nav-link dropdown-toggle"
             routerLink="/administration"
@@ -97,6 +97,11 @@
       </li>
       <li class="nav-link navbar-brand">
         <app-user-chip mode="full"></app-user-chip>
+      </li>
+      <li class="nav-item d-flex align-content-center">
+        <button class="logout-btn" (click)="onLogout()">
+          <fa-icon [icon]="faArrowRightFromBracket"></fa-icon>
+        </button>
       </li>
     </ul>
   </div>

@@ -1,7 +1,7 @@
 import { Component, computed, inject, Input, Signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { UserContext } from '../../core/auth/auth.model';
-import { AuthService } from '../../core/auth/auth.service';
+import { MeService } from '../../core/auth/me.service';
+import { MyProfile } from '../user.model';
 
 @Component({
     selector: 'app-user-chip',
@@ -14,8 +14,8 @@ export class UserChipComponent {
     @Input() mode: 'compact' | 'full' = 'compact';
     @Input() size: 'sm' | 'md' | 'lg' = 'md';
 
-    private authService: AuthService = inject(AuthService);
-    protected user: Signal<UserContext | null> = this.authService.currentUser;
+    private meService = inject(MeService);
+    protected user: Signal<MyProfile | null> = this.meService.currentUser;
 
     protected displayNameFull: Signal<string> = computed(() => this.user()?.displayName || '');
 
