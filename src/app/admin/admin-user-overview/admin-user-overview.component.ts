@@ -2,10 +2,12 @@ import { Component, OnInit, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { DatatableComponent, TableColumn, TableConfig } from '../../common/datatable/datatable.component';
+import { DialogService } from '../../common/dialog/dialog.service';
 import { MaskEmailPipe } from '../../common/pipes/mask-email.pipe';
 import { SpinnerComponent } from '../../common/spinner/spinner.component';
 import { UserStatus } from '../../user/user.model';
-import { UserAdmin } from '../admin.model';
+import { AdminUserCreateDialogComponent } from '../admin-user-create-dialog/admin-user-create-dialog.component';
+import { UserAdminResponse } from '../admin.model';
 import { UserAdminApiService } from '../user-admin-api.service';
 
 @Component({
@@ -17,19 +19,36 @@ import { UserAdminApiService } from '../user-admin-api.service';
     styleUrl: './admin-user-overview.component.less',
 })
 export class AdminUserOverviewComponent implements OnInit {
-    users?: UserAdmin[] = [];
+    users?: UserAdminResponse[] = [];
     config?: TableConfig;
     isLoading = signal<boolean>(true);
 
     constructor(
         private userAdminApiService: UserAdminApiService,
         private translateService: TranslateService,
-        private maskEmailPipe: MaskEmailPipe
+        private maskEmailPipe: MaskEmailPipe,
+        private dialogService: DialogService
     ) {}
 
     ngOnInit(): void {
         this.initTableConfig();
         this.loadAllUsers();
+    }
+
+    protected onCreateUser(): void {
+        this.dialogService
+            .open({
+                title: 'ADMIN_USER_CREATE_DIALOG.TITEL',
+                component: AdminUserCreateDialogComponent,
+            })
+            .subscribe({
+                next: res => {
+                    console.log('onCreateUser abgeschlossen: ', res);
+                },
+                error: err => {
+                    console.warn('onCreateUser fehlerhaft: ', err);
+                },
+            });
     }
 
     private loadAllUsers(): void {
@@ -56,9 +75,9 @@ export class AdminUserOverviewComponent implements OnInit {
     private getTableColums(): TableColumn[] {
         return [
             {
-                name: 'ADMIN_USER_OVERVIEW.ANZEIGENAME',
+                name: 'ADMIN_USER_OVERVIEW.BENUTZERNAME',
                 prop: 'displayName',
-                href: (row: UserAdmin) => `/administration/users/${row.id}`,
+                href: (row: UserAdminResponse) => `/administration/users/${row.id}`,
                 minWidth: 100,
             },
             {

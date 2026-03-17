@@ -1,0 +1,10 @@
+{
+  "ADMIN_USER_CREATE_DIALOG": {
+    "TITEL": "Benutzererstellung",
+    "BENUTZERNAME": "Benutzername",
+    "EMAIL": "E-Mail",
+    "ROLLEN": "Rollen",
+    "SONDERBERECHTIGUNGEN": "Sonderberechtigungen",
+    "BENUTZER_ERSTELLEN": "Benutzer erstellen"
+  }
+}

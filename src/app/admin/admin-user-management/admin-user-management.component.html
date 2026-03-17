@@ -8,14 +8,6 @@
       <app-spinner size="lg" [message]="'Lade Benutzerdaten'" [isLoading]="isLoading()">
         @if (user(); as userDetails) {
           <div class="row">
-            <div class="col-md-2">Gebannt am:</div>
-            <div class="col-md-2">?</div>
-          </div>
-          <div class="row">
-            <div class="col-md-2">Gebannt bis:</div>
-            <div class="col-md-2">{{ userDetails.bannedUntil ? userDetails.bannedUntil : '-' }}</div>
-          </div>
-          <div class="row">
             <div class="d-flex gap-3">
               <button type="button" class="btn btn-primary" (click)="onEdit()">
                 <fa-icon [icon]="faEdit"></fa-icon>
