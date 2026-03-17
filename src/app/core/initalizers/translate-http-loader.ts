@@ -37,6 +37,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         { prefix: rootPath + 'menu/general-menu-', suffix },
         { prefix: rootPath + 'admin/admin-user-create-dialog-', suffix },
         { prefix: rootPath + 'admin/admin-user-edit-dialog-', suffix },
+        { prefix: rootPath + 'profil/display-name-edit-dialog-', suffix },
         // TODO: weitere Übersetzungsdateien hier hinzufügen
     ];
 

@@ -1,0 +1,60 @@
+@if (form) {
+  <form [formGroup]="form">
+    <div class="col-md-12">
+      <div class="row">
+        <label for="username" class="col-md-4 col-form-label align-items-center">
+          {{ 'DISPLAY_NAME_EDIT_DIALOG.BENUTZERNAME' | translate }}:*
+          <span
+            class="ms-1"
+            placement="end"
+            [openDelay]="500"
+            tooltipClass="custom-tooltip"
+            [ngbTooltip]="displayNameTooltipContent"
+          >
+            <fa-icon [icon]="faCircleInfo"></fa-icon>
+          </span>
+        </label>
+        <div class="col-md-8">
+          <input
+            id="username"
+            type="text"
+            class="form-control"
+            [class]="{ 'is-invalid': shouldMarkInvalid('displayName') }"
+            formControlName="displayName"
+            placeholder="John.Doe"
+            autofocus
+          />
+          <div class="invalid-feedback">
+            @if (form.get('displayName')?.errors?.['required']) {
+              <span>Benutzername wird benötigt.</span>
+            }
+            @if (form.get('displayName')?.errors?.['minlength']) {
+              <span>Mindestens 3 Zeichen erforderlich.</span>
+            } @else if (form.get('displayName')?.errors?.['displayNameFormat']) {
+              <span>Benutzername entspricht nicht den Richtlinien!</span>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-secondary" (click)="onCancel()">
+            {{ 'ALLGEMEIN.ABBRECHEN' | translate }}
+          </button>
+          <button class="btn btn-primary" (click)="onSave()" [disabled]="isSaveButtonDisabled()">
+            {{ 'ALLGEMEIN.SPEICHERN' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+}
+
+<ng-template #displayNameTooltipContent>
+  <ul class="mb-0 ps-3 text-start">
+    <li>Muss mindestens 3 Zeichen lang sein.</li>
+    <li>Darf maximal 30 Zeichen lang sein.</li>
+    <li>Darf nur alpha-numerische Buchstaben und Zahlen sowie Punkt, Bindestrich und Unterstrich enthalten.</li>
+    <li>Keines der erlaubten Sonderzeichen darf am Anfang oder Ende stehen.</li>
+  </ul>
+</ng-template>
