@@ -1,6 +1,6 @@
 {
   "ADMIN_USER_OVERVIEW": {
-    "ANZEIGENAME": "Display name",
+    "BENUTZERNAME": "Username",
     "EMAIL": "E-Mail",
     "STATUS": "Status",
     "ROLLEN": "Roles",
