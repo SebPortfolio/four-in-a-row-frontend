@@ -11,6 +11,7 @@
   (sort)="onSort($event)"
   [externalSorting]="true"
   [messages]="messages"
+  [rowHeight]="'auto'"
 >
   @for (col of columns; track col.prop) {
     <ngx-datatable-column
@@ -20,10 +21,11 @@
       [width]="col.width ?? 150"
       [minWidth]="col.minWidth ?? 50"
       [maxWidth]="col.maxWidth ?? undefined!"
+      [cellClass]="col.class ?? ''"
     >
       <ng-template ngx-datatable-header-template>
         <div (click)="onSort(col.prop)" class="header-content" style="cursor: pointer">
-          <span class="header-name">{{ col.name | translate }}</span>
+          <span class="header-name truncate">{{ col.name | translate }}</span>
           <span class="sort-icon-container">
             @if (getSortDir(col.prop) === 'asc') {
               <fa-icon [icon]="faCaretUp"></fa-icon>
@@ -35,13 +37,38 @@
       </ng-template>
 
       <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
-        @if (value !== undefined && value !== null && value !== '') {
-          @if (col.transform) {
-            <span>{{ col.transform(value) | translate }}</span>
-          } @else if (col.href) {
-            <a [routerLink]="col.href(row)">{{ value }}</a>
-          } @else {
-            {{ value }}
+        @if (col.cellTemplate) {
+          <ng-container [ngTemplateOutlet]="col.cellTemplate" [ngTemplateOutletContext]="{ row: row, value: value }">
+          </ng-container>
+        } @else if (value !== undefined && value !== null && value !== '') {
+          @switch (col.type) {
+            @case ('date') {
+              <span>{{ value | appDate: 'date' }}</span>
+            }
+            @case ('dateTime') {
+              <span>{{ value | appDate: 'dateTime' }}</span>
+            }
+            @case ('dateTimeFull') {
+              <span>{{ value | appDate: 'dateTimeFull' }}</span>
+            }
+            @case ('time') {
+              <span>{{ value | appDate: 'time' }}</span>
+            }
+            @case ('timeFull') {
+              <span>{{ value | appDate: 'timeFull' }}</span>
+            }
+            @case ('number') {
+              <span>{{ value | number: undefined : this.languageService.localeId() }}</span>
+            }
+            @default {
+              @if (col.transform) {
+                <span>{{ col.transform(value) | translate }}</span>
+              } @else if (col.href) {
+                <a [routerLink]="col.href(row)">{{ value }}</a>
+              } @else {
+                {{ value }}
+              }
+            }
           }
         } @else {
           <span class="no-data-placeholder">
@@ -76,14 +103,16 @@
               <fa-icon [icon]="faAngleLeft"></fa-icon>
             </button>
 
-            <span class="page-indicator">
-              {{ 'ALLGEMEIN.TABELLE.SEITE' | translate: { current: curPage, total: math.ceil(rowCount / pageSize) } }}
-            </span>
+            @for (page of getVisiblePages(curPage, rowCount, pageSize); track page) {
+              <button type="button" class="pager-btn" [class.active]="page === curPage" (click)="changePage(page)">
+                {{ page }}
+              </button>
+            }
 
             <button
               type="button"
               class="pager-btn"
-              [disabled]="curPage === math.ceil(rowCount / pageSize)"
+              [disabled]="curPage === calculateTotalPages(rowCount, pageSize)"
               (click)="changePage(curPage + 1)"
             >
               <fa-icon [icon]="faAngleRight"></fa-icon>
@@ -92,8 +121,8 @@
             <button
               type="button"
               class="pager-btn"
-              [disabled]="curPage === math.ceil(rowCount / pageSize)"
-              (click)="changePage(math.ceil(rowCount / pageSize))"
+              [disabled]="curPage === calculateTotalPages(rowCount, pageSize)"
+              (click)="changePage(calculateTotalPages(rowCount, pageSize))"
             >
               <fa-icon [icon]="faAnglesRight"></fa-icon>
             </button>

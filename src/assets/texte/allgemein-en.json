@@ -7,8 +7,7 @@
     "NEIN": "No",
     "SCHLIESSEN": "Close",
     "TABELLE": {
-      "ZEILEN_LIMIT": "{{ start }} to {{ end }} of {{ total }} elements",
-      "SEITE": "Page {{ current }} / {{ total }}"
+      "ZEILEN_LIMIT": "{{ start }} to {{ end }} of {{ total }} elements"
     }
   }
 }

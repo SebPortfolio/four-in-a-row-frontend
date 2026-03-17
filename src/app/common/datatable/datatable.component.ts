@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { DecimalPipe, NgTemplateOutlet } from '@angular/common';
+import { Component, inject, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -11,15 +12,27 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxDatatableModule, DatatableComponent as NgxTableComponent } from '@swimlane/ngx-datatable';
+import { LanguageService } from '../../core/language.service';
+import { AppDatePipe } from '../pipes/app-date.pipe';
 
 @Component({
     selector: 'app-datatable',
     standalone: true,
-    imports: [NgxDatatableModule, TranslateModule, FontAwesomeModule, RouterLink],
+    imports: [
+        NgxDatatableModule,
+        TranslateModule,
+        FontAwesomeModule,
+        RouterLink,
+        NgTemplateOutlet,
+        AppDatePipe,
+        DecimalPipe,
+    ],
     templateUrl: './datatable.component.html',
     styleUrl: './datatable.component.less',
 })
 export class DatatableComponent<T = Record<string, unknown>> implements OnInit, OnChanges {
+    languageService = inject(LanguageService);
+
     @Input() config?: TableConfig;
     @Input() data?: T[];
 
@@ -157,7 +170,32 @@ export class DatatableComponent<T = Record<string, unknown>> implements OnInit, 
         return path.split('.').reduce((prev, curr) => (prev ? (prev as any)[curr] : undefined), obj);
     }
 
-    // Icons für das Template bereitstellen
+    protected calculateTotalPages(rowCount: number, pageSize: number): number {
+        return this.math.ceil(rowCount / pageSize);
+    }
+
+    protected getVisiblePages(curPage: number, rowCount: number, pageSize: number): number[] {
+        const total = this.calculateTotalPages(rowCount, pageSize);
+        const pages: number[] = [];
+
+        // Bis zu 5 Seiten anzeigen
+        // Strategie: Versuche curPage in Mitte zu halten
+        let start = Math.max(1, curPage - 2);
+        const end = Math.min(total, start + 4);
+
+        // Falls am Ende der Liste, Startpunkt nach vorne korrigieren
+        if (end - start < 4) {
+            start = Math.max(1, end - 4);
+        }
+
+        for (let i = start; i <= end; i++) {
+            pages.push(i);
+        }
+
+        return pages;
+    }
+
+    // fa-icons
     protected faCaretUp = faCaretUp;
     protected faCaretDown = faCaretDown;
     protected faAngleLeft = faAngleLeft;
@@ -189,6 +227,8 @@ export type TableColumn = {
     maxWidth?: number;
     width?: number;
     sortable?: boolean;
+    type?: FieldType;
+    class?: string; // Cell classes to apply to the body cell
     emptyValuesAtBottom?: boolean; // Steuert die Position leerer Werte, bei false stehen leere Werte nicht dauerhaft hinten an
     href?: (row: any) => string; // Dynamische ID aus der Zeile -> href: (row) => `/players/${row.id}`
     cellTemplate?: TemplateRef<any>;
@@ -200,3 +240,5 @@ export type SortStrategy = {
     prop: string;
     dir: 'asc' | 'desc' | null;
 };
+
+export type FieldType = 'text' | 'number' | 'date' | 'dateTime' | 'dateTimeFull' | 'time' | 'timeFull';

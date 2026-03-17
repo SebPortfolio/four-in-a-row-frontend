@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { computed, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { InterpolatableTranslationObject, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { LANGUAGES } from './constants/languages.constant';
@@ -15,6 +15,12 @@ export class LanguageService {
     private readonly platformId = inject(PLATFORM_ID);
 
     readonly currentLang = signal<string>(this.appDefaultLangCode);
+
+    private readonly localeMap: Record<string, string> = {
+        de: 'de-DE',
+        en: 'en-US',
+    };
+    readonly localeId = computed(() => this.localeMap[this.currentLang()] || 'de-DE');
 
     public initLang(): Observable<InterpolatableTranslationObject> {
         const langCode = this.getPreferedLanguageCode();
@@ -48,8 +54,12 @@ export class LanguageService {
     }
 
     private setPreferedLanguageCode(langCode: string): void {
-        console.log(`Sprachpräferenz geändert: '${langCode}'`);
-        localStorage.setItem(this.localStorageVar, langCode);
+        if (isPlatformBrowser(this.platformId)) {
+            console.log(`Sprachpräferenz geändert: '${langCode}'`);
+            localStorage.setItem(this.localStorageVar, langCode);
+        } else {
+            console.debug('Kein Browser, ergo kein localStorage. KEINE Erneuerung der Sprachpräferenz');
+        }
     }
 
     public changeAndSetPreference(langCode: string): void {
