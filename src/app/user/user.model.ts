@@ -2,7 +2,7 @@ import { UserStatusWdto, UserUpdateRequestWdto, UserWdto } from '../../../openap
 
 export type User = UserWdto;
 
-export type UserUpdateRequest = UserUpdateRequestWdto;
+export type UserPatchRequest = UserPatchRequestWdto;
 
 export type UserStatus = UserStatusWdto; // TODO: später in user.model.ts überführen
 export const UserStatus = UserStatusWdto;

@@ -28,8 +28,8 @@ export class UserAdminApiService {
         return this.userAdminApi.createUserAsAdmin(request);
     }
 
-    patchUser(userId: number, request: UserAdminUpdateRequest): Observable<UserAdmin> {
-        return this.userAdminApi.updateUserAsAdmin(userId, request);
+    patchUser(userId: number, request: UserAdminPatchRequest): Observable<UserAdminResponse> {
+        return this.userAdminApi.patchUserAsAdmin(userId, request);
     }
 
     deleteUser(userId: number): Observable<void> {

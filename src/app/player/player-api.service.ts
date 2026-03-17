@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PlayerApi } from '../../../openapi';
-import { Player } from './player.model';
+import { Player, PlayerPatchRequest } from './player.model';
 
 @Injectable({
     providedIn: 'root',
@@ -21,7 +21,7 @@ export class PlayerApiService {
         return this.playerApi.getPlayerById(playerId);
     }
 
-    public updatePlayer(player: Player): Observable<Player> {
-        return this.playerApi.updatePlayer(player.id, player);
+    public patchPlayer(playerId: number, patchRequest: PlayerPatchRequest): Observable<Player> {
+        return this.playerApi.patchPlayer(playerId, patchRequest);
     }
 }

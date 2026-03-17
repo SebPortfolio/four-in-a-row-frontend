@@ -18,6 +18,8 @@ tags:
       description: Endpunkt zur Verwaltung von Usern
     - name: User-Administration
       description: Endpunkt zur administrativen Verwaltung von Usern
+    - name: Player-Administration
+      description: Endpunkt zur administativen Verwaltung von Spielern
     - name: Auth
       description: Endpunkt zur Verwaltung der Authentifizierung
 
@@ -300,19 +302,19 @@ paths:
                     $ref: '#/components/responses/TooManyRequestsError'
                 default:
                     $ref: '#/components/responses/InternalServerError'
-        put:
-            summary: Ersetze einen Spieler
-            operationId: updatePlayer
+        patch:
+            summary: Patche einen Spieler
+            operationId: patchPlayer
             x-webclient-blocking: true
             tags:
                 - Player
             requestBody:
-                description: aktualisierter Spieler
+                description: zu aktualisierende Spielerwerte
                 required: true
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/Player'
+                            $ref: '#/components/schemas/PlayerPatchRequest'
             responses:
                 '200':
                     description: Ok - Spieler aktualisiert
@@ -333,31 +335,6 @@ paths:
                 default:
                     $ref: '#/components/responses/InternalServerError'
 
-    '/api/v1/users':
-        get:
-            summary: Erhalte alle User
-            operationId: getUsers
-            x-webclient-blocking: true
-            tags:
-                - User
-            responses:
-                '200':
-                    description: Ok - User-Liste abgerufen
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/User'
-                '401':
-                    $ref: '#/components/responses/Unauthorized'
-                '403':
-                    $ref: '#/components/responses/Forbidden'
-                '429':
-                    $ref: '#/components/responses/TooManyRequestsError'
-                default:
-                    $ref: '#/components/responses/InternalServerError'
-
     '/api/v1/users/{userId}':
         parameters:
             - in: path
@@ -365,19 +342,46 @@ paths:
               required: true
               schema:
                   $ref: '#/components/schemas/UserId'
-        get:
-            summary: Erhalte einen spezifischen User
-            operationId: getUserById
+        patch:
+            summary: Patche einen User
+            operationId: patchUser
+            x-webclient-blocking: true
+            tags:
+                - User
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UserPatchRequest'
+            responses:
+                '200':
+                    description: Ok - User aktualisiert
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserResponse'
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+                '403':
+                    $ref: '#/components/responses/Forbidden'
+                '429':
+                    $ref: '#/components/responses/TooManyRequestsError'
+                default:
+                    $ref: '#/components/responses/InternalServerError'
+        delete:
+            summary: Lösche User und anonymisiere das Profil
+            operationId: deleteUser
             x-webclient-blocking: true
             tags:
                 - User
             responses:
-                '200':
-                    description: Ok - User abgerufen
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/User'
+                '204':
+                    description: NoContent - User gelöscht und Profil anonymisieren
                 '401':
                     $ref: '#/components/responses/Unauthorized'
                 '403':
@@ -524,8 +528,8 @@ paths:
                 default:
                     $ref: '#/components/responses/InternalServerError'
         patch:
-            summary: Update User-Stammdaten
-            operationId: updateUserAsAdmin
+            summary: Patche User als Admin
+            operationId: patchUserAsAdmin
             x-webclient-blocking: true
             tags:
                 - User-Administration
@@ -534,7 +538,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/UserAdminUpdateRequest'
+                            $ref: '#/components/schemas/UserAdminPatchRequest'
             responses:
                 '200':
                     description: Ok - User aktualisiert
@@ -679,7 +683,29 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/UserAdmin'
+
+    '/api/v1/administration/players/{playerId}':
+        parameters:
+            - in: path
+              name: playerId
+              required: true
+              schema:
+                  $ref: '#/components/schemas/PlayerId'
+        patch:
+            summary: Patche Player als Admin
+            operationId: patchPlayerAsAdmin
+            x-webclient-blocking: true
+            tags:
+                - Player-Administration
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/PlayerPatchRequest'
+            responses:
+                '204':
+                    description: NoContent - Player aktualisiert
                 '400':
                     $ref: '#/components/responses/BadRequest'
                 '401':
@@ -1211,6 +1237,15 @@ components:
                     description: Datum des letzten Spiels
                     example: '2026-02-23'
 
+        PlayerPatchRequest:
+            type: object
+            description: Model zum patchen eines Spielers
+            properties:
+                displayName:
+                    description: Neuer Anzeigename
+                    nullable: true
+                    $ref: '#/components/schemas/DisplayName'
+
         MoveRequest:
             type: object
             required:
@@ -1431,7 +1466,7 @@ components:
                 banReason:
                     $ref: '#/components/schemas/BanReason'
 
-        UserUpdateRequest:
+        UserPatchRequest:
             type: object
             description: Modell für änderbare Felder eines Users
             properties:
@@ -1508,13 +1543,10 @@ components:
                     items:
                         $ref: '#/components/schemas/PermissionName'
 
-        UserAdminUpdateRequest:
+        UserAdminPatchRequest:
             type: object
             description: Modell für administrativ änderbare Felder eines Users
             properties:
-                displayName:
-                    description: geänderter displayName
-                    $ref: '#/components/schemas/DisplayName'
                 email:
                     description: geänderte E-Mail Adresse
                     $ref: '#/components/schemas/Email'
