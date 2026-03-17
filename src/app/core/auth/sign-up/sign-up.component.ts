@@ -71,7 +71,8 @@ export class SignUpComponent {
         this.showPassword = !this.showPassword;
     }
 
-    faEye = faEye;
-    faEyeSlash = faEyeSlash;
-    faCircleInfo = faCircleInfo;
+    // fa-icons
+    protected readonly faEye = faEye;
+    protected readonly faEyeSlash = faEyeSlash;
+    protected readonly faCircleInfo = faCircleInfo;
 }

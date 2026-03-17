@@ -5,7 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { AuthApiService } from '../auth-api.service';
-import { AuthUserResponse, LoginRequest } from '../auth.model';
+import { LoginRequest } from '../auth.model';
 
 @Component({
     selector: 'app-login',
@@ -43,8 +43,8 @@ export class LoginComponent {
                 password: this.loginForm.get('password')?.value,
             };
             this.authApiService.login(loginRequest).subscribe({
-                next: (res: AuthUserResponse) => {
-                    this.router.navigate(['players', res.userContext.playerId]);
+                next: () => {
+                    this.router.navigate(['/dashboard']);
                 },
                 error: (err: HttpErrorResponse) => {
                     console.error('login response error: ', err);
@@ -59,6 +59,7 @@ export class LoginComponent {
         this.showPassword = !this.showPassword;
     }
 
-    faEye = faEye;
-    faEyeSlash = faEyeSlash;
+    // fa-icons
+    protected readonly faEye = faEye;
+    protected readonly faEyeSlash = faEyeSlash;
 }
