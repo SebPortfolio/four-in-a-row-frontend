@@ -1,0 +1,11 @@
+<app-panel [panelTitle]="'Benutzer-Historie'">
+  <app-spinner [isLoading]="isLoading()" [message]="'Lade Benutzerhistorie'">
+    @if (history()) {
+      <app-datatable [config]="tableConfig" [data]="history()"></app-datatable>
+    }
+  </app-spinner>
+</app-panel>
+
+<ng-template #auditPillTemplate let-row="row" let-value="value">
+  <app-audit-pill [revisionType]="value"></app-audit-pill>
+</ng-template>

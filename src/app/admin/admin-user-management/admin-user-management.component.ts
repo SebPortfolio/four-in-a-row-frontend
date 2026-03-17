@@ -1,14 +1,16 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faEdit, faHandFist, faInfinity, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
+import { AuditPillComponent } from '../../common/audit-pill/audit-pill.component';
 import { DialogService } from '../../common/dialog/dialog.service';
 import { SpinnerComponent } from '../../common/spinner/spinner.component';
 import { UserStammdatenPanelComponent } from '../../user/user-stammdaten-panel/user-stammdaten-panel.component';
-import { UserStatus } from '../../user/user.model';
-import { UserAdmin } from '../admin.model';
+import { AdminUserEditComponent } from '../admin-user-edit/admin-user-edit.component';
+import { AdminUserHistoryPanelComponent } from '../admin-user-history-panel/admin-user-history-panel.component';
+import { UserAdminResponse } from '../admin.model';
 import { UserAdminApiService } from '../user-admin-api.service';
 
 @Component({
@@ -20,6 +22,8 @@ import { UserAdminApiService } from '../user-admin-api.service';
         FaIconComponent,
         UserStammdatenPanelComponent,
         AdminUserEditComponent,
+        AdminUserHistoryPanelComponent,
+        AuditPillComponent,
     ],
     templateUrl: './admin-user-management.component.html',
     styleUrl: './admin-user-management.component.less',

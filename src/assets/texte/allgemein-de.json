@@ -8,6 +8,11 @@
     "SCHLIESSEN": "Schließen",
     "TABELLE": {
       "ZEILEN_LIMIT": "{{ start }} bis {{ end }} von {{ total }} Einträgen"
+    },
+    "AUDIT": {
+      "ERSTELLEN": "Erstellen",
+      "AKTUALISIEREN": "Aktualisieren",
+      "LOESCHEN": "Löschen"
     }
   }
 }
