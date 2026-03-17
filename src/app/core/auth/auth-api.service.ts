@@ -1,9 +1,12 @@
 import { DestroyRef, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { catchError, EMPTY, Observable, of, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { catchError, EMPTY, Observable, of, switchMap, tap } from 'rxjs';
 import { AuthApi } from '../../../../openapi';
-import { AuthUserResponse, LoginRequest, RegisterRequest } from './auth.model';
+import { MyProfile } from '../../user/user.model';
+import { AuthResponse, LoginRequest, RegisterRequest } from './auth.model';
 import { AuthService } from './auth.service';
+import { MeService } from './me.service';
 
 @Injectable({
     providedIn: 'root',
@@ -12,18 +15,24 @@ export class AuthApiService {
     constructor(
         private authApi: AuthApi,
         private authService: AuthService,
-        private destroyRef: DestroyRef
+        private destroyRef: DestroyRef,
+        private router: Router,
+        private meService: MeService
     ) {}
 
-    register(registerRequest: RegisterRequest): Observable<AuthUserResponse> {
+    register(registerRequest: RegisterRequest): Observable<AuthResponse> {
         return this.authApi.register(registerRequest).pipe(tap(res => this.authService.updateAuth(res)));
     }
 
-    login(loginRequest: LoginRequest): Observable<AuthUserResponse> {
-        return this.authApi.login(loginRequest).pipe(tap(res => this.authService.updateAuth(res)));
+    login(loginRequest: LoginRequest): Observable<MyProfile> {
+        return this.authApi.login(loginRequest).pipe(
+            tap(res => this.authService.updateAuth(res)),
+            switchMap(() => this.getMe()),
+            tap(user => this.meService.setUser(user))
+        );
     }
 
-    refresh(): Observable<AuthUserResponse> {
+    refresh(): Observable<AuthResponse> {
         return this.authApi.refreshAccessToken().pipe(tap(res => this.authService.updateAuth(res)));
     }
 
@@ -39,20 +48,32 @@ export class AuthApiService {
                 // falls die App entladen wird
                 takeUntilDestroyed(this.destroyRef),
                 // Egal ob Erfolg oder Fehler: Lokal aufräumen
-                tap(() => this.authService.clearAuth()),
+                tap(() => {
+                    this.authService.clearAuth();
+                    this.meService.resetUser();
+                }),
                 catchError(() => {
                     this.authService.clearAuth();
+                    this.meService.resetUser();
                     return EMPTY;
                 })
             )
             .subscribe();
+        this.router.navigate(['/login']);
     }
 
-    checkAuth(): Observable<AuthUserResponse | null> {
-        return this.authApi.refreshAccessToken().pipe(
-            tap(res => this.authService.updateAuth(res)),
+    getMe(): Observable<MyProfile> {
+        return this.authApi.me();
+    }
+
+    checkAuth(): Observable<MyProfile | null> {
+        return this.refresh().pipe(
+            switchMap(() => this.getMe()),
+            tap((user: MyProfile) => {
+                this.meService.setUser(user);
+            }),
             catchError(() => {
-                this.authService.clearAuth();
+                this.logout();
                 return of(null);
             })
         );

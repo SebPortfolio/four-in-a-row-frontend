@@ -8,7 +8,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { displayNameFormatValidator } from '../../../common/validators/displayNameFormat.validator';
 import { passwordFormatValidator } from '../../../common/validators/passwordFormat.validator';
 import { AuthApiService } from '../auth-api.service';
-import { AuthUserResponse, RegisterRequest } from '../auth.model';
+import { AuthResponse, RegisterRequest } from '../auth.model';
 
 @Component({
     selector: 'app-sign-up',
@@ -55,8 +55,8 @@ export class SignUpComponent {
                 password: this.signUpForm.get('password')?.value,
             };
             this.authApiService.register(registerRequest).subscribe({
-                next: (res: AuthUserResponse) => {
-                    this.router.navigate(['players', res.userContext.playerId]);
+                next: (res: AuthResponse) => {
+                    this.router.navigate(['/dashboard']);
                 },
                 error: (err: HttpErrorResponse) => {
                     console.error('regsiter response error: ', err);

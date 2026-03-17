@@ -1,24 +1,42 @@
 import {
-    BanPermanentRequestWdto,
+    BanAuditWdto,
+    BanCreateRequestWdto,
+    BanPermanentCreateRequestWdto,
     BanReasonWdto,
-    BanRequestWdto,
-    UnbanRequestWdto,
+    BanUpdateRequestWdto,
+    BanWdto,
+    CancelBanRequestWdto,
+    PlayerPatchRequestWdto,
     UserAdminCreateRequestWdto,
-    UserAdminUpdateRequestWdto,
-    UserAdminWdto,
+    UserAdminPatchRequestWdto,
+    UserAdminResponseWdto,
+    UserAuditWdto,
 } from '../../../openapi';
 
-export type UserAdmin = UserAdminWdto;
+export type UserAdminResponse = UserAdminResponseWdto;
 
 export type UserAdminCreateRequest = UserAdminCreateRequestWdto;
 
-export type UserAdminUpdateRequest = UserAdminUpdateRequestWdto;
-
-export type BanRequest = BanRequestWdto;
-
-export type BanPermanentRequest = BanPermanentRequestWdto;
+export type UserAdminPatchRequest = UserAdminPatchRequestWdto;
 
 export type BanReason = BanReasonWdto;
 export const BanReason = BanReasonWdto;
 
-export type UnbanRequest = UnbanRequestWdto;
+export type BanCreateRequest = BanCreateRequestWdto;
+
+export type BanPermanentCreateRequest = BanPermanentCreateRequestWdto;
+
+export type BanUpdateRequest = BanUpdateRequestWdto;
+
+export type CancelBanRequest = CancelBanRequestWdto;
+
+export type BanResponse = BanWdto;
+
+export type BanAudit = BanAuditWdto;
+
+export type PlayerPatchRequest = PlayerPatchRequestWdto;
+
+export type UserAudit = UserAuditWdto;
+
+export type RevisionType = UserAuditWdto.RevisionTypeEnum;
+export const RevisionType = UserAuditWdto.RevisionTypeEnum;

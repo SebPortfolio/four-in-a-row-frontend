@@ -1,14 +1,7 @@
-import {
-    AuthUserResponseWdto,
-    LoginRequestWdto,
-    RegisterRequestWdto,
-    UserContextResponseWdto,
-} from '../../../../openapi';
+import { AuthResponseWdto, LoginRequestWdto, RegisterRequestWdto } from '../../../../openapi';
 
 export type RegisterRequest = RegisterRequestWdto;
 
-export type AuthUserResponse = AuthUserResponseWdto;
+export type AuthResponse = AuthResponseWdto;
 
 export type LoginRequest = LoginRequestWdto;
-
-export type UserContext = UserContextResponseWdto;

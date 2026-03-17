@@ -1,8 +1,10 @@
-import { UserStatusWdto, UserUpdateRequestWdto, UserWdto } from '../../../openapi';
+import { MyProfileWdto, UserPatchRequestWdto, UserResponseWdto, UserStatusWdto } from '../../../openapi';
 
-export type User = UserWdto;
+export type UserResponse = UserResponseWdto;
 
 export type UserPatchRequest = UserPatchRequestWdto;
 
-export type UserStatus = UserStatusWdto; // TODO: später in user.model.ts überführen
+export type UserStatus = UserStatusWdto;
 export const UserStatus = UserStatusWdto;
+
+export type MyProfile = MyProfileWdto;

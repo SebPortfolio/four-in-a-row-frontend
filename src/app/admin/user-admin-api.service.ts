@@ -1,14 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserAdministrationApi } from '../../../openapi';
-import {
-    BanPermanentRequest,
-    BanRequest,
-    UnbanRequest,
-    UserAdmin,
-    UserAdminCreateRequest,
-    UserAdminUpdateRequest,
-} from './admin.model';
+import { UserAdminCreateRequest, UserAdminPatchRequest, UserAdminResponse, UserAudit } from './admin.model';
 
 @Injectable({
     providedIn: 'root',
@@ -16,15 +9,15 @@ import {
 export class UserAdminApiService {
     constructor(private userAdminApi: UserAdministrationApi) {}
 
-    getAllUsers(): Observable<UserAdmin[]> {
+    getAllUsers(): Observable<UserAdminResponse[]> {
         return this.userAdminApi.getUsersAsAdmin();
     }
 
-    getUserById(userId: number): Observable<UserAdmin> {
+    getUserById(userId: number): Observable<UserAdminResponse> {
         return this.userAdminApi.getUserByIdAsAdmin(userId);
     }
 
-    createUser(request: UserAdminCreateRequest): Observable<UserAdmin> {
+    createUser(request: UserAdminCreateRequest): Observable<UserAdminResponse> {
         return this.userAdminApi.createUserAsAdmin(request);
     }
 
@@ -36,15 +29,15 @@ export class UserAdminApiService {
         return this.userAdminApi.deleteUserAsAdmin(userId);
     }
 
-    banUserTemporarily(userId: number, request: BanRequest): Observable<UserAdmin> {
-        return this.userAdminApi.banUser(userId, request);
+    getAllRoles(): Observable<string[]> {
+        return this.userAdminApi.getAllRoles();
     }
 
-    banUserPermanent(userId: number, request: BanPermanentRequest): Observable<UserAdmin> {
-        return this.userAdminApi.banUserPermanent(userId, request);
+    getAllPermissions(): Observable<string[]> {
+        return this.userAdminApi.getAllPermissions();
     }
 
-    unbanUser(userid: number, request: UnbanRequest): Observable<UserAdmin> {
-        return this.userAdminApi.unbanUser(userid, request);
+    getUserHistory(userId: number): Observable<UserAudit[]> {
+        return this.userAdminApi.getUserHistory(userId);
     }
 }

@@ -1,10 +1,10 @@
 import { InterpolatableTranslationObject } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { MyProfile } from '../../user/user.model';
 import { AuthApiService } from '../auth/auth-api.service';
-import { AuthUserResponse } from '../auth/auth.model';
 import { LanguageService } from '../language.service';
 
-export function initializeApp(authService: AuthApiService): () => Observable<AuthUserResponse | null> {
+export function initializeApp(authService: AuthApiService): () => Observable<MyProfile | null> {
     return () => authService.checkAuth();
 }
 
