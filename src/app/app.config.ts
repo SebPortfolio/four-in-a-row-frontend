@@ -4,6 +4,7 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { HttpClient, provideHttpClient, withInterceptors, withXsrfConfiguration } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { BASE_PATH } from '../../openapi';
+import { environment } from '../environments/environment';
 import { routes } from './app.routes';
 import { AuthApiService } from './core/auth/auth-api.service';
 import { initializeApp, initializeLanguage } from './core/initalizers/app.initializer';
@@ -23,7 +24,7 @@ export const appConfig: ApplicationConfig = {
                 headerName: 'X-XSRF-TOKEN', // Name des Headers, den Spring erwartet
             })
         ),
-        { provide: BASE_PATH, useValue: 'http://localhost:8000' },
+        { provide: BASE_PATH, useValue: environment.apiUrl },
         { provide: APP_INITIALIZER, useFactory: initializeApp, deps: [AuthApiService], multi: true },
         { provide: APP_INITIALIZER, useFactory: initializeLanguage, deps: [LanguageService], multi: true },
         importProvidersFrom(
