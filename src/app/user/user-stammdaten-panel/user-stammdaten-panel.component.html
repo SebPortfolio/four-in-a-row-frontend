@@ -50,10 +50,7 @@
       <p>{{ 'USER_STAMMDATEN.KEINE_DATEN' }}</p>
     }
   </app-spinner>
-
-  @if (user()) {
-    <span panel-footer #footerContent class="italic">{{
-      'USER_STAMMDATEN.ZULETZT_BEARBEITET_AM' | translate: { date: '2026-02-28T14:35:56Z' | appDate: 'dateTime' }
-    }}</span>
+  @if (user()?.lastModifiedInfos; as lastModified) {
+    <app-last-modified-info panel-footer #footerContent [infos]="lastModified"></app-last-modified-info>
   }
 </app-panel>

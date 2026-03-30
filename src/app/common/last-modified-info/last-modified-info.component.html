@@ -1,0 +1,10 @@
+<span class="italic">
+  {{
+    'ALLGEMEIN.ZULETZT_BEARBEITET'
+      | translate
+        : {
+            date: infos().lastModifiedAt | appDate: 'dateTime',
+            user: getModifierName(),
+          }
+  }}
+</span>
