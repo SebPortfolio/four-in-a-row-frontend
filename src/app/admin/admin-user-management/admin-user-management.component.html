@@ -1,17 +1,21 @@
 <div class="col-md-12">
   <div class="row">
     <div class="col-md-6">
-      @if (!isEditing()) {
-        <app-user-stammdaten-panel [user]="user()" [isLoading]="isLoading()"></app-user-stammdaten-panel>
-      } @else {
-        <div class="col-md-12">
-          <app-admin-user-edit
-            [(show)]="isEditing"
-            [userData]="user()!"
-            (userChange)="onUserChange($event)"
-          ></app-admin-user-edit>
-        </div>
-      }
+      <app-spinner size="lg" message="Lade Benutzerdaten" [isLoading]="isLoading()">
+        @if (user(); as userData) {
+          @if (!isEditing()) {
+            <app-user-stammdaten-panel [userId]="userData.id"></app-user-stammdaten-panel>
+          } @else {
+            <div class="col-md-12">
+              <app-admin-user-edit
+                [(show)]="isEditing"
+                [userData]="userData"
+                (hasUserChanged)="onHasUserChanged($event)"
+              ></app-admin-user-edit>
+            </div>
+          }
+        }
+      </app-spinner>
     </div>
 
     <div class="col-md-6">
@@ -47,10 +51,6 @@
           <p>Keine Benutzerdaten gefunden!</p>
         }
       </app-spinner>
-
-      @if (!isLoading()) {
-        <app-spinner size="xs" [isLoading]="true"></app-spinner>
-      }
     </div>
   </div>
 </div>

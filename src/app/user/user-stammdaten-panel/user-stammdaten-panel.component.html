@@ -8,7 +8,22 @@
         </div>
         <div class="row">
           <div class="col-md-4">{{ 'USER_STAMMDATEN.EMAIL' | translate }}:</div>
-          <div class="col-md-8">{{ userDetails.email | maskEmail }}</div>
+          <div class="col-md-8 d-flex gap-2">
+            @if (clearEmail()) {
+              <code>{{ clearEmail() }}</code>
+              <span class="timer-badge"> (Verschwindet in {{ secondsLeft() }}s) </span>
+            } @else {
+              <span>{{ userDetails.maskedEmail }}</span>
+              <button
+                class="btn btn-secondary tiny-btn"
+                (click)="onRevealEmail()"
+                [attr.title]="'USER_STAMMDATEN.ZEIGE_EMAIL' | translate"
+                [attr.aria-label]="'USER_STAMMDATEN.ZEIGE_EMAIL' | translate"
+              >
+                <fa-icon [icon]="faEye"></fa-icon>
+              </button>
+            }
+          </div>
         </div>
         <div class="row">
           <div class="col-md-4">{{ 'USER_STAMMDATEN.LETZTE_PW_AENDERUNG' | translate }}:</div>

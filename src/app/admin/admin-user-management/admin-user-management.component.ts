@@ -4,7 +4,6 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faEdit, faHandFist, faInfinity, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
-import { AuditPillComponent } from '../../common/audit-pill/audit-pill.component';
 import { DialogService } from '../../common/dialog/dialog.service';
 import { SpinnerComponent } from '../../common/spinner/spinner.component';
 import { UserStammdatenPanelComponent } from '../../user/user-stammdaten-panel/user-stammdaten-panel.component';
@@ -23,7 +22,6 @@ import { UserAdminApiService } from '../user-admin-api.service';
         UserStammdatenPanelComponent,
         AdminUserEditComponent,
         AdminUserHistoryPanelComponent,
-        AuditPillComponent,
     ],
     templateUrl: './admin-user-management.component.html',
     styleUrl: './admin-user-management.component.less',
@@ -92,8 +90,11 @@ export class AdminUserManagementComponent implements OnInit {
         console.debug('Unban: ', this.user());
     }
 
-    protected onUserChange(user: UserAdminResponse): void {
-        this.user.set(user);
+    protected onHasUserChanged(hasChanged: boolean): void {
+        const originalUser = this.user();
+        if (hasChanged && originalUser) {
+            this.userAdminApiService.getUserById(originalUser.id);
+        }
     }
 
     // fa-Icons

@@ -241,4 +241,4 @@ export type SortStrategy = {
     dir: 'asc' | 'desc' | null;
 };
 
-export type FieldType = 'text' | 'number' | 'date' | 'dateTime' | 'dateTimeFull' | 'time' | 'timeFull';
+export type FieldType = 'text' | 'number' | 'boolean' | 'date' | 'dateTime' | 'dateTimeFull' | 'time' | 'timeFull';

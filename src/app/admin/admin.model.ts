@@ -6,8 +6,11 @@ import {
     BanUpdateRequestWdto,
     BanWdto,
     CancelBanRequestWdto,
+    EmailRevealResponseWdto,
     PlayerPatchRequestWdto,
     UserAdminCreateRequestWdto,
+    UserAdminMasterDataResponseWdto,
+    UserAdminOverviewResponseWdto,
     UserAdminPatchRequestWdto,
     UserAdminResponseWdto,
     UserAuditWdto,
@@ -40,3 +43,9 @@ export type UserAudit = UserAuditWdto;
 
 export type RevisionType = UserAuditWdto.RevisionTypeEnum;
 export const RevisionType = UserAuditWdto.RevisionTypeEnum;
+
+export type EmailRevealResponse = EmailRevealResponseWdto;
+
+export type UserAdminOverviewResponse = UserAdminOverviewResponseWdto;
+
+export type UserAdminMasterDataResponse = UserAdminMasterDataResponseWdto;

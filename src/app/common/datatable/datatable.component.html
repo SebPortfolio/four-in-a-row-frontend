@@ -42,6 +42,9 @@
           </ng-container>
         } @else if (value !== undefined && value !== null && value !== '') {
           @switch (col.type) {
+            @case ('boolean') {
+              <span>{{ value ? ('ALLGEMEIN.JA' | translate) : ('ALLGEMEIN.NEIN' | translate) }}</span>
+            }
             @case ('date') {
               <span>{{ value | appDate: 'date' }}</span>
             }

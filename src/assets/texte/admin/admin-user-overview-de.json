@@ -4,6 +4,7 @@
     "EMAIL": "E-Mail",
     "STATUS": "Status",
     "ROLLEN": "Rollen",
-    "HAT_SONDERBERECHTIGUNGEN": "Hat Sonderberechtigungen?"
+    "HAT_SONDERBERECHTIGUNGEN": "Hat Sonderberechtigungen?",
+    "IST_GEBANNT": "Ist gebannt?"
   }
 }

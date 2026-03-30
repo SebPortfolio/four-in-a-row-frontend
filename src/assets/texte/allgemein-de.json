@@ -13,6 +13,8 @@
       "ERSTELLEN": "Erstellen",
       "AKTUALISIEREN": "Aktualisieren",
       "LOESCHEN": "Löschen"
-    }
+    },
+    "ZULETZT_BEARBEITET": "Zuletzt bearbeitet am {{ date }} von {{ user }}",
+    "DIR": "dir"
   }
 }

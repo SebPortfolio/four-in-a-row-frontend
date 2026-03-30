@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserAdministrationApi } from '../../../openapi';
-import { UserAdminCreateRequest, UserAdminPatchRequest, UserAdminResponse, UserAudit } from './admin.model';
+import {
+    EmailRevealResponse,
+    UserAdminCreateRequest,
+    UserAdminMasterDataResponse,
+    UserAdminOverviewResponse,
+    UserAdminPatchRequest,
+    UserAdminResponse,
+    UserAudit,
+} from './admin.model';
 
 @Injectable({
     providedIn: 'root',
@@ -39,5 +47,17 @@ export class UserAdminApiService {
 
     getUserHistory(userId: number): Observable<UserAudit[]> {
         return this.userAdminApi.getUserHistory(userId);
+    }
+
+    getRevealedEmail(userId: number): Observable<EmailRevealResponse> {
+        return this.userAdminApi.getRevealedEmail(userId);
+    }
+
+    getUserOverview(): Observable<UserAdminOverviewResponse[]> {
+        return this.userAdminApi.getUserAdminOverview();
+    }
+
+    getUserMasterData(userId: number): Observable<UserAdminMasterDataResponse> {
+        return this.userAdminApi.getUserAdminMasterData(userId);
     }
 }

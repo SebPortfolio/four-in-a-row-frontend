@@ -4,6 +4,7 @@
     "EMAIL": "E-Mail",
     "STATUS": "Status",
     "ROLLEN": "Roles",
-    "HAT_SONDERBERECHTIGUNGEN": "Has extra permissions?"
+    "HAT_SONDERBERECHTIGUNGEN": "Has extra permissions?",
+    "IST_GEBANNT": "Is banned?"
   }
 }

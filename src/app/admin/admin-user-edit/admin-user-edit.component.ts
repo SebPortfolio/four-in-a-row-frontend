@@ -22,6 +22,7 @@ import { UserAdminApiService } from '../user-admin-api.service';
 })
 export class AdminUserEditComponent implements OnInit {
     userData = input.required<UserAdminResponse>();
+    protected userToEdit = signal<UserAdminResponse | null>(null);
     userForm?: FormGroup;
     givenRoles = input<Observable<string[]> | undefined>();
     givenPermissions = input<Observable<string[]> | undefined>();
@@ -30,9 +31,10 @@ export class AdminUserEditComponent implements OnInit {
     protected permissions = signal<string[]>([]);
 
     protected isLoading = signal<boolean>(false);
+    protected isInitialLoading = signal<boolean>(true);
     show = model<boolean>(false);
 
-    userChange = output<UserAdminResponse>();
+    hasUserChanged = output<boolean>();
 
     constructor(
         private fb: FormBuilder,
@@ -42,13 +44,47 @@ export class AdminUserEditComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.initRoles();
-        this.initPermissions();
-        this.initForm();
+        this.loadInitialData();
+    }
+
+    private loadInitialData(): void {
+        const roles$ = this.givenRoles() ?? this.userAdminApiService.getAllRoles();
+        const permissions$ = this.givenPermissions() ?? this.userAdminApiService.getAllPermissions();
+        const clearEmail$ = this.userAdminApiService.getRevealedEmail(this.userData().id);
+
+        // Wir warten auf beide gleichzeitig
+        forkJoin({
+            roles: roles$,
+            permissions: permissions$,
+            clearEmail: clearEmail$,
+        })
+            .pipe(finalize(() => this.isInitialLoading.set(false)))
+            .subscribe({
+                next: data => {
+                    this.roles.set(data.roles);
+                    this.permissions.set(data.permissions);
+
+                    const preparedUser: UserAdminResponse = {
+                        ...this.userData(),
+                        email: data.clearEmail.email,
+                    };
+                    this.userToEdit.set(preparedUser);
+
+                    this.initForm();
+                },
+                error: err => {
+                    console.error('Initiales Laden fehlgeschlagen', err);
+                    this.hasUserChanged.emit(false);
+                },
+            });
     }
 
     private initForm(): void {
-        const user = this.userData();
+        const user = this.userToEdit();
+        if (!user) {
+            console.warn('User nicht geladen');
+            return;
+        }
         this.userForm = this.fb.group({
             displayName: this.fb.control(user.displayName, {
                 nonNullable: true,
@@ -63,28 +99,15 @@ export class AdminUserEditComponent implements OnInit {
         });
     }
 
-    private initRoles(): void {
-        if (!this.givenRoles()) {
-            this.loadRoles();
-        } else {
-            this.givenRoles()?.subscribe(data => {
-                this.roles.set(data);
-            });
-        }
-    }
-
-    private initPermissions(): void {
-        if (!this.givenPermissions()) {
-            this.loadPermissions();
-        } else {
-            this.givenPermissions()?.subscribe(data => {
-                this.permissions.set(data);
-            });
-        }
-    }
-
     protected shouldMarkInvalid(controlName: string): boolean {
         return this.formService.shouldMarkInvalid(this.userForm!, controlName);
+    }
+
+    protected isSaveButtonDisabled(): boolean {
+        const hasUserChanges = Object.keys(this.buildUserPatchRequest()).length > 0;
+        const hasPlayerChanges = Object.keys(this.buildPlayerPatchRequest()).length > 0;
+
+        return this.userForm?.invalid || this.isLoading() || (!hasUserChanges && !hasPlayerChanges);
     }
 
     protected onCancel(): void {
@@ -92,7 +115,9 @@ export class AdminUserEditComponent implements OnInit {
     }
 
     protected onSubmit(): void {
-        if (this.userForm?.invalid) return;
+        if (this.userForm?.invalid) {
+            return;
+        }
 
         const userPatch: UserAdminPatchRequest = this.buildUserPatchRequest();
         const playerPatch: PlayerPatchRequest = this.buildPlayerPatchRequest();
@@ -111,7 +136,7 @@ export class AdminUserEditComponent implements OnInit {
         const requests = {
             user: hasUserChanges
                 ? this.userAdminApiService.patchUser(this.userData().id, userPatch)
-                : of(this.userData()), // Falls kein Update, nimm alte Daten
+                : of(this.userToEdit()!), // Falls kein Update, nimm alte Daten
             player: hasPlayerChanges
                 ? this.playerAdminApiService.patchPlayer(this.userData().playerId, playerPatch)
                 : of(null),
@@ -120,13 +145,8 @@ export class AdminUserEditComponent implements OnInit {
         forkJoin(requests)
             .pipe(finalize(() => this.isLoading.set(false)))
             .subscribe({
-                next: result => {
-                    const finalResponse: UserAdminResponse = {
-                        ...result.user,
-                        displayName: this.userForm?.get('displayName')?.value ?? result.user.displayName,
-                    };
-
-                    this.handleResponse(finalResponse);
+                next: () => {
+                    this.handleResponse();
                 },
                 error: err => {
                     console.error('Fehler beim Updaten:', err);
@@ -134,31 +154,24 @@ export class AdminUserEditComponent implements OnInit {
             });
     }
 
-    private handleResponse(updatedUser: UserAdminResponse): void {
-        this.userChange.emit(updatedUser);
+    private handleResponse(): void {
+        this.hasUserChanged.emit(true);
         this.toggleVisibility();
     }
 
-    protected isSaveButtonDisabled(): boolean {
-        const hasUserChanges = Object.keys(this.buildUserPatchRequest()).length > 0;
-        const hasPlayerChanges = Object.keys(this.buildPlayerPatchRequest()).length > 0;
-
-        return this.userForm?.invalid || this.isLoading() || (!hasUserChanges && !hasPlayerChanges);
-    }
-
     private buildUserPatchRequest(): UserAdminPatchRequest {
-        const originalValues = { ...this.userData() };
+        const originalValues = { ...this.userToEdit() };
         const updatedValues = this.userForm?.getRawValue();
 
-        return this.formService.getChangedValues(
-            originalValues,
-            updatedValues,
-            this.formService.getKeys(originalValues)
-        );
+        return this.formService.getChangedValues(originalValues, updatedValues, [
+            'email',
+            'roles',
+            'customPermissions',
+        ]);
     }
 
     private buildPlayerPatchRequest(): PlayerPatchRequest {
-        const originalValues = { displayName: this.userData().displayName };
+        const originalValues = { displayName: this.userToEdit()?.displayName };
         const updatedDisplayName = this.userForm?.get('displayName')?.value;
         const updatedValues = { displayName: updatedDisplayName };
 

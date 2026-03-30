@@ -7,10 +7,10 @@
     "STATUS": "Status",
     "ROLLEN": "Rollen",
     "SONDERBERECHTIGUNGEN": "Sonderberechtigungen",
-    "ZULETZT_BEARBEITET_AM": "Zuletzt bearbeitet am {{date}}",
     "NIE": "nie",
     "KEINE": "keine",
     "LADEN": "Lade Benutzerdaten",
-    "KEINE_DATEN": "Keine Benutzerdaten gefunden"
+    "KEINE_DATEN": "Keine Benutzerdaten gefunden",
+    "ZEIGE_EMAIL": "Zeige Email im Klartext"
   }
 }

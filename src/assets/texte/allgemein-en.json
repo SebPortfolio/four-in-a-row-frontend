@@ -13,6 +13,8 @@
       "ERSTELLEN": "Create",
       "AKTUALISIEREN": "Update",
       "LOESCHEN": "Delete"
-    }
+    },
+    "ZULETZT_BEARBEITET": "Last edited on {{ date }} by {{ user }}",
+    "DIR": "you"
   }
 }

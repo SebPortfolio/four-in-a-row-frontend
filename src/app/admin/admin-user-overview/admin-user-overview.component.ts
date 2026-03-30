@@ -3,30 +3,28 @@ import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { DatatableComponent, TableColumn, TableConfig } from '../../common/datatable/datatable.component';
 import { DialogService } from '../../common/dialog/dialog.service';
-import { MaskEmailPipe } from '../../common/pipes/mask-email.pipe';
 import { SpinnerComponent } from '../../common/spinner/spinner.component';
 import { UserStatus } from '../../user/user.model';
 import { AdminUserCreateDialogComponent } from '../admin-user-create-dialog/admin-user-create-dialog.component';
-import { UserAdminResponse } from '../admin.model';
+import { UserAdminOverviewResponse } from '../admin.model';
 import { UserAdminApiService } from '../user-admin-api.service';
 
 @Component({
     selector: 'app-admin-user-overview',
     standalone: true,
     imports: [DatatableComponent, SpinnerComponent],
-    providers: [MaskEmailPipe],
+    providers: [],
     templateUrl: './admin-user-overview.component.html',
     styleUrl: './admin-user-overview.component.less',
 })
 export class AdminUserOverviewComponent implements OnInit {
-    users?: UserAdminResponse[] = [];
+    users?: UserAdminOverviewResponse[] = [];
     config?: TableConfig;
     isLoading = signal<boolean>(true);
 
     constructor(
         private userAdminApiService: UserAdminApiService,
         private translateService: TranslateService,
-        private maskEmailPipe: MaskEmailPipe,
         private dialogService: DialogService
     ) {}
 
@@ -53,7 +51,7 @@ export class AdminUserOverviewComponent implements OnInit {
 
     private loadAllUsers(): void {
         this.userAdminApiService
-            .getAllUsers()
+            .getUserOverview()
             .pipe(finalize(() => this.isLoading.set(false)))
             .subscribe({
                 next: res => {
@@ -77,16 +75,15 @@ export class AdminUserOverviewComponent implements OnInit {
             {
                 name: 'ADMIN_USER_OVERVIEW.BENUTZERNAME',
                 prop: 'displayName',
-                href: (row: UserAdminResponse) => `/administration/users/${row.id}`,
+                href: (row: UserAdminOverviewResponse) => `/administration/users/${row.id}`,
                 minWidth: 100,
+                width: 100,
             },
             {
                 name: 'ADMIN_USER_OVERVIEW.EMAIL',
-                prop: 'email',
-                minWidth: 100,
-                transform: (email: string): string => {
-                    return this.maskEmailPipe.transform(email);
-                },
+                prop: 'maskedEmail',
+                minWidth: 80,
+                width: 100,
             },
             {
                 name: 'ADMIN_USER_OVERVIEW.STATUS',
@@ -95,21 +92,28 @@ export class AdminUserOverviewComponent implements OnInit {
                     return this.translateService.instant(`USER.STATUS.${status}`);
                 },
                 minWidth: 70,
+                width: 100,
             },
             {
                 name: 'ADMIN_USER_OVERVIEW.ROLLEN',
                 prop: 'roles',
                 noDataStr: '-',
                 minWidth: 80,
+                width: 140,
             },
             {
                 name: 'ADMIN_USER_OVERVIEW.HAT_SONDERBERECHTIGUNGEN',
-                prop: 'customPermissions',
-                transform: (customPermissions: PermissionName[]): string => {
-                    const boolenString: string = !customPermissions || customPermissions.length === 0 ? 'NEIN' : 'JA';
-                    return this.translateService.instant('ALLGEMEIN.' + boolenString);
-                },
+                prop: 'hasCustomPermissions',
+                type: 'boolean',
                 minWidth: 220,
+                width: 300,
+            },
+            {
+                name: 'ADMIN_USER_OVERVIEW.IST_GEBANNT',
+                prop: 'isBanned',
+                type: 'boolean',
+                minWidth: 100,
+                width: 100,
             },
         ];
     }
